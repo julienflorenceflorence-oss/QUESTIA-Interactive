@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questia — Vision Stratégique du Marché 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070d;
+            --bg-2: #0a0e18;
+            --accent: #00e5ff;
+            --accent-glow: #7b5cff;
+            --text: #eef1f7;
+            --text-dim: #8a93a8;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --radius: 20px;
+            --ease: cubic-bezier(.2,.8,.2,1);
+            --brand-gradient: linear-gradient(135deg, #00e5ff 0%, #7b5cff 50%, #ff5a6a 100%);
+            --accent-soft: rgba(0, 229, 255, 0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Bricolage Grotesque', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Background Experience */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(1200px 600px at 12% -5%, rgba(123,92,255,0.15), transparent 55%),
+                radial-gradient(900px 500px at 95% 20%, rgba(0,229,255,0.12), transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Grid Mask */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .prestige-wrapper { max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* HEADER */
+        header { 
+            text-align: center; 
+            margin-bottom: 120px; 
+            animation: fadeIn 1s var(--ease);
+        }
+        h1 { 
+            font-family: 'Bricolage Grotesque'; 
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: clamp(3rem, 10vw, 5rem); 
+            letter-spacing: -0.05em; 
+            line-height: 0.9;
+        }
+        .subtitle { 
+            font-family: 'Bricolage Grotesque'; 
+            color: var(--accent); 
+            font-weight: 600;
+            letter-spacing: 0.2em; 
+            font-size: 0.9rem; 
+            margin-top: 30px; 
+            text-transform: uppercase;
+            background: rgba(0, 229, 255, 0.1);
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 100px;
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+
+        /* SECTIONS */
+        section { 
+            margin-bottom: 150px; 
+            scroll-margin-top: 120px;
+            animation: fadeIn 1.2s var(--ease) both;
+        }
+        h2 { 
+            font-family: 'Bricolage Grotesque'; 
+            font-weight: 800;
+            color: #fff; 
+            font-size: 2.2rem; 
+            letter-spacing: -0.02em; 
+            margin-bottom: 40px; 
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        h2::before {
+            content: "";
+            width: 40px;
+            height: 2px;
+            background: var(--brand-gradient);
+        }
+
+        p { font-size: 1.15rem; color: var(--text-dim); margin-bottom: 30px; font-weight: 300; }
+        strong { color: #fff; font-weight: 600; }
+
+        /* KPI CARDS */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin: 60px 0; }
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: all 0.4s var(--ease);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-card:hover { 
+            transform: translateY(-10px); 
+            border-color: rgba(0, 229, 255, 0.4); 
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .kpi-card::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--brand-gradient); transform: scaleX(0); transition: 0.4s; transform-origin: left;
+        }
+        .kpi-card:hover::after { transform: scaleX(1); }
+        .kpi-val { font-size: 3rem; font-weight: 800; color: var(--accent); display: block; margin-bottom: 10px; letter-spacing: -0.04em; }
+        .kpi-lab { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+
+        /* SEGMENT CARDS */
+        .segment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
+        .segment-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 40px;
+            border-radius: var(--radius);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .segment-card:hover { background: rgba(255,255,255,0.06); border-color: var(--accent); }
+        .segment-card h3 { font-weight: 800; color: var(--accent); margin-bottom: 15px; font-size: 1.4rem; letter-spacing: -0.01em; }
+        .segment-card ul { list-style: none; color: var(--text-dim); }
+        .segment-card li { margin-bottom: 12px; position: relative; padding-left: 25px; }
+        .segment-card li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+
+        /* BUTTONS */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: 0.3s var(--ease);
+            cursor: pointer;
+        }
+        .btn-action:hover { background: #fff; color: var(--bg); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,255,255,0.15); }
+        .btn-action::after { content: "→"; transition: 0.3s; }
+        .btn-action:hover::after { transform: translateX(5px); }
+
+        /* FIXED NAV DOCK */
+        .fixed-dock { 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 700px; background: rgba(10, 14, 24, 0.85); backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border); border-radius: 24px; padding: 12px;
+            display: flex; gap: 10px; z-index: 1000;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .dock-btn {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 16px;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .dock-btn.primary { background: var(--accent); color: var(--bg); }
+        .dock-btn:hover { color: #fff; background: rgba(255,255,255,0.08); }
+        .dock-btn.primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* TABLE */
+        .table-container { overflow-x: auto; margin: 40px 0; border-radius: var(--radius); border: 1px solid var(--card-border); }
+        .prestige-table { width: 100%; border-collapse: collapse; background: var(--card-bg); font-size: 0.95rem; }
+        .prestige-table th { background: rgba(0, 229, 255, 0.08); color: var(--accent); font-weight: 700; padding: 20px; text-align: left; }
+        .prestige-table td { padding: 20px; border-bottom: 1px solid var(--card-border); color: var(--text-dim); }
+        .prestige-table tr:hover { background: rgba(255, 255, 255, 0.04); }
+
+        /* MODAL */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 7, 13, 0.98);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            backdrop-filter: blur(25px);
+        }
+        .overlay-content {
+            max-width: 800px;
+            width: 100%;
+            color: var(--text);
+            animation: fadeIn 0.6s var(--ease);
+        }
+        .close-overlay {
+            position: absolute; top: 40px; right: 40px;
+            cursor: pointer; font-size: 1.8rem; color: var(--text-dim);
+        }
+
+        /* Inline Tabs for Sections */
+        .inline-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .inline-tab-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--card-border);
+            color: var(--text-dim);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: 'Bricolage Grotesque';
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s var(--ease);
+            white-space: nowrap;
+        }
+        .inline-tab-btn.active {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+        }
+        .inline-tab-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+        }
+
+        footer {
+            margin-top: 100px; padding: 60px 0;
+            border-top: 1px solid var(--card-border);
+            text-align: center; font-size: 0.8rem; color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        .questia-brand {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .source-tag {
+            font-size: 0.6rem;
+            color: var(--accent);
+            opacity: 0.6;
+            margin-left: 5px;
+            font-family: ui-monospace, monospace;
+            vertical-align: super;
+        }
+
+        /* FORM STYLING */
+        .audit-form {
+            display: grid;
+            gap: 25px;
+            text-align: left;
+        }
+        .form-group {
+            display: grid;
+            gap: 10px;
+        }
+        .form-block-title {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        label { font-size: 0.85rem; color: var(--text-dim); }
+        input, select, textarea {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--card-border);
+            padding: 14px;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Bricolage Grotesque';
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent);
+            background: rgba(0,229,255,0.03);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+        }
+        .rgpd-check {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+        .rgpd-check input { width: auto; margin-top: 3px; }
+
+        @media (max-width: 768px) {
+            .fixed-dock { padding: 8px; bottom: 20px; font-size: 0.7rem; }
+            .dock-btn { padding: 10px; }
+            h1 { font-size: 2.8rem; }
+            h2 { font-size: 1.8rem; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-overlay"></div>
+    
+    <div class="prestige-wrapper">
+        <header>
+            <h1><span class="questia-brand">QuestIA</span></h1>
+            <div class="subtitle">Vision Stratégique & Analyse Marché 2026</div>
+        </header>
+
+        <!-- Section 1 -->
+        <section id="intro">
+            <h2>L'Épicentre de l'Innovation</h2>
+            <p>
+                <span class="questia-brand">QuestIA</span> se positionne à l’épicentre de trois révolutions majeures : la <strong>formation linguistique digitale</strong>, l’<strong>IA conversationnelle</strong>, et la <strong>pédagogie immersive</strong>. 
+            </p>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <button class="btn-action" onclick="showModal('intro-modal')">Lire le Manifeste</button>
+                <button class="btn-action" style="border-color: var(--accent); color: var(--accent);" onclick="showModal('roadmap')">Voir la Roadmap</button>
+            </div>
+        </section>
+
+        <!-- Section 2: Problème -->
+        <section id="probleme">
+            <h2>L'Impasse Linguistique</h2>
+            
+            <div class="inline-tabs">
+                <button class="inline-tab-btn active" onclick="updateInlineTheme('b2b', this)">B2B / Corporate</button>
+                <button class="inline-tab-btn" onclick="updateInlineTheme('edu', this)">Éducation</button>
+                <button class="inline-tab-btn" onclick="updateInlineTheme('eco', this)">Économie</button>
+            </div>
+
+            <div id="inline-impasse-content">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <span class="kpi-val" id="kpi-1">91%<span class="source-tag">LinkedIn 2024</span></span>
+                        <span class="kpi-lab" id="lab-1">RH déçus par l'oral</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-val" id="kpi-2">85%<span class="source-tag">B2B Report</span></span>
+                        <span class="kpi-lab" id="lab-2">ROI non mesurable</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-val" id="kpi-3">0<span class="source-tag">Audit Interne</span></span>
+                        <span class="kpi-lab" id="lab-3">Preuve de performance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <p id="impasse-description">
+                Le segment <strong>Corporate</strong> souffre d'une déconnexion totale entre les certifications académiques et la réalité du terrain. <span class="questia-brand">QuestIA</span> répare ce lien.
+            </p>
+        </section>
+
+        <!-- Section 3: Dynamique -->
+        <section id="marche">
+            <h2>L'Opportunité 2026</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card" style="border-left: 4px solid #7b5cff;">
+                    <span class="kpi-val">24.5B$<span class="source-tag">HolonIQ</span></span>
+                    <span class="kpi-lab">Marché Global 2025</span>
+                </div>
+                <div class="kpi-card" style="border-left: 4px solid var(--accent);">
+                    <span class="kpi-val">+18%<span class="source-tag">CAGR</span></span>
+                    <span class="kpi-lab">Croissance Annuelle</span>
+                </div>
+                <div class="kpi-card" style="border-left: 4px solid #ff5a6a;">
+                    <span class="kpi-val">30%<span class="source-tag">GSV Ventures</span></span>
+                    <span class="kpi-lab">Part Corporate/OF</span>
+                </div>
+            </div>
+            <p>
+                Le segment <strong>Corporate & Institutionnel</strong> exprime un besoin vital pour des solutions structurées, collectives et enfin mesurables.
+            </p>
+        </section>
+
+        <!-- Section 4: Business (Segments) -->
+        <section id="business">
+            <h2>Analyse de la Concurrence</h2>
+            <div class="segment-grid">
+                <div class="segment-card" onclick="showModal('babbel')">
+                    <h3>Apps B2B (Babbel)</h3>
+                    <p>Vendent de la lisibilité administrative mais souffrent d'une passivité pédagogique relative.</p>
+                    <ul>
+                        <li>2,000+ Entreprises</li>
+                        <li>Focus : Pilotage RH</li>
+                    </ul>
+                </div>
+                <div class="segment-card" onclick="showModal('fluent')">
+                    <h3>Blended (goFLUENT)</h3>
+                    <p>Qualité humaine perçue très forte, mais scalabilité limitée et coûts de licence prohibitifs.</p>
+                    <ul>
+                        <li>$20 / utilisateur / mois</li>
+                        <li>Focus : Prestige Corporate</li>
+                    </ul>
+                </div>
+                <div class="segment-card" onclick="showModal('langua')">
+                    <h3>IA Pure (Langua)</h3>
+                    <p>Rupture technologique majeure mais manque cruel de reporting et de structure institutionnelle.</p>
+                    <ul>
+                        <li>$500/mois (Entreprise)</li>
+                        <li>Focus : Spontanéité</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Zone Vide -->
+        <section id="insight">
+            <h2>L'Équation QuestIA</h2>
+            <div style="background: var(--brand-gradient); padding: 1px; border-radius: var(--radius); margin: 40px 0;">
+                <div style="background: var(--bg); padding: 50px; border-radius: 19px; text-align: center;">
+                    <p style="font-size: 1.8rem; color: #fff; font-weight: 800; line-height: 1.2; margin-bottom: 0;">
+                        "L'immersion collective + La mesurabilité institutionnelle = <span style="color: var(--accent)">La nouvelle norme.</span>"
+                    </p>
+                </div>
+            </div>
+            <p>
+                La zone vide du marché n'est pas technologique, elle est <strong>pédagogique et structurelle</strong>. Questia comble ce fossé.
+            </p>
+        </section>
+
+        <!-- Section 6: Challenge -->
+        <section id="challenge">
+            <h2>Le Levier du Challenge</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card" style="background: rgba(184, 255, 61, 0.05); border-color: rgba(184, 255, 61, 0.2);">
+                    <span class="kpi-val" style="color: #b8ff3d;">7.5x</span>
+                    <span class="kpi-lab">Engagement (Gamification)</span>
+                </div>
+                <div class="kpi-card" style="background: rgba(255, 181, 71, 0.05); border-color: rgba(255, 181, 71, 0.2);">
+                    <span class="kpi-val" style="color: #ffb547;">92%</span>
+                    <span class="kpi-lab">Taux de Rétention</span>
+                </div>
+            </div>
+            <p>
+                En instaurant une mécanique de compétition entre campus, Questia transforme la formation en un <strong>événement stratégique et médiatique</strong> pour l'établissement.
+            </p>
+            <button class="btn-action" style="width: 100%; height: 80px; font-size: 1.2rem; background: var(--brand-gradient); border: none; color: var(--bg); font-weight: 900;" onclick="window.location.href='QUESTIA_Challenge_National_Prestige.html'">Découvrir le Challenge National</button>
+        </section>
+
+        <footer>
+            <span class="questia-brand">QuestIA</span> © 2026 — ANALYSE STRATÉGIQUE CONFIDENTIELLE<br>
+            <span style="opacity: 0.5; font-size: 0.6rem; margin-top: 10px; display: block; font-family: ui-monospace, monospace;">DATA DRIVEN // IMMERSIVE TECH</span>
+        </footer>
+    </div>
+
+    <!-- NOUVEAU DOCK FONCTIONNEL -->
+    <div class="fixed-dock">
+        <a href="questia V2.html" class="dock-btn" style="border: 1px solid rgba(255,255,255,0.1)">Site Officiel</a>
+        <a href="#intro" class="dock-btn">Vision</a>
+        <a href="#business" class="dock-btn">Marché</a>
+        <a href="QUESTIA_Challenge_National_Prestige.html" class="dock-btn" style="background: var(--brand-gradient); color: var(--bg); font-weight: 800;">Le Challenge</a>
+        <a href="QUESTIA_Simulateur_ROI_Prestige.html" class="dock-btn" style="border: 1px solid rgba(0,229,255,0.3); color: var(--accent);">Simulateur ROI</a>
+        <button class="dock-btn primary" onclick="showModal('audit-modal')">Demandez votre audit</button>
+    </div>
+
+    <!-- MODALS -->
+    <div id="overlay" class="overlay" onclick="closeModal()">
+        <span class="close-overlay" onclick="closeModal()">✕</span>
+        <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <script>
+        const inlineThemeData = {
+            'b2b': {
+                kpis: [
+                    { val: '91%', lab: 'RH déçus par l\'oral', src: 'LinkedIn 2024' },
+                    { val: '85%', lab: 'ROI non mesurable', src: 'B2B Report' },
+                    { val: '0', lab: 'Preuve de performance', src: 'Audit Interne' }
+                ],
+                desc: 'Le segment <strong>Corporate</strong> souffre d\'une déconnexion totale entre les certifications académiques et la réalité du terrain. <span class="questia-brand">QuestIA</span> répare ce lien.'
+            },
+            'edu': {
+                kpis: [
+                    { val: '78%', lab: 'Passivité en cours', src: 'Eurostat' },
+                    { val: '9%', lab: 'Étudiants confiants', src: 'B2B Talent' },
+                    { val: '33/35', lab: 'Rang France (Europe)', src: 'EF EPI' }
+                ],
+                desc: 'Le modèle d\'<strong>Éducation</strong> traditionnel privilégie la théorie. Les étudiants sortent diplômés mais incapables d\'agir. <span class="questia-brand">QuestIA</span> redonne le pouvoir d\'agir.'
+            },
+            'eco': {
+                kpis: [
+                    { val: '5.4 Md€', lab: 'Perte annuelle (FR)', src: 'Ass. Nationale' },
+                    { val: '49e', lab: 'Rang Mondial (EPI)', src: 'EF Report' },
+                    { val: '-30%', lab: 'Efficacité à l\'export', src: 'Business France' }
+                ],
+                desc: 'L\'<strong>Économie</strong> française paie le prix fort de son retard linguistique. La compétitivité internationale passe par une maîtrise orale immédiate. <span class="questia-brand">QuestIA</span> est un levier de croissance.'
+            }
+        };
+
+        function updateInlineTheme(themeId, btn) {
+            const data = inlineThemeData[themeId];
+            
+            // Update KPIs
+            data.kpis.forEach((kpi, i) => {
+                const idx = i + 1;
+                document.getElementById(`kpi-${idx}`).innerHTML = `${kpi.val}<span class="source-tag">${kpi.src}</span>`;
+                document.getElementById(`lab-${idx}`).innerText = kpi.lab;
+            });
+
+            // Update Description
+            document.getElementById('impasse-description').innerHTML = data.desc;
+
+            // Update Tabs
+            document.querySelectorAll('.inline-tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        const modals = {
+            'intro-modal': {
+                title: 'Notre Manifeste',
+                content: `
+                    <p>Nous croyons que la langue n'est pas une matière scolaire, mais un outil de conquête professionnelle.</p>
+                    <p><span class="questia-brand">QuestIA</span> a été conçu pour briser le plafond de verre de la formation passive. Notre mission est de rendre chaque seconde d'apprentissage utile, immersive et mesurable.</p>
+                `
+            },
+            'roadmap': {
+                title: 'Roadmap Stratégique 2026',
+                content: `
+                    <div style="display: grid; gap: 30px;">
+                        <div style="border-left: 2px solid var(--accent); padding-left: 20px;">
+                            <b style="color:var(--accent); font-size:1.2rem;">Q1 : Lancement Pilotes</b>
+                            <p style="font-size:0.95rem; margin-top:5px;">Déploiement sur 10 campus partenaires. Finalisation du moteur d'IA conversationnelle propriétaire.</p>
+                        </div>
+                        <div style="border-left: 2px solid #7b5cff; padding-left: 20px;">
+                            <b style="color:#7b5cff; font-size:1.2rem;">Q2 : Challenge National S1</b>
+                            <p style="font-size:0.95rem; margin-top:5px;">Ouverture de la première ligue inter-établissements. Dashboard d'impact temps réel v1.0.</p>
+                        </div>
+                        <div style="border-left: 2px solid #ff5a6a; padding-left: 20px;">
+                            <b style="color:#ff5a6a; font-size:1.2rem;">Q3 : Expansion & Certification</b>
+                            <p style="font-size:0.95rem; margin-top:5px;">Intégration native des certifications (TOEIC/DELE). Support de 4 langues additionnelles.</p>
+                        </div>
+                        <div style="border-left: 2px solid #b8ff3d; padding-left: 20px;">
+                            <b style="color:#b8ff3d; font-size:1.2rem;">Q4 : IA Adaptive Pro</b>
+                            <p style="font-size:0.95rem; margin-top:5px;">Algorithme de difficulté prédictive basé sur la performance métier. White-label pour grands comptes.</p>
+                        </div>
+                    </div>
+                `
+            },
+            'babbel': {
+                title: 'Benchmark : Babbel for Business',
+                content: `
+                    <p><b>Forces :</b> Une marque mondiale, un dashboard admin simple, un coût d'entrée faible.</p>
+                    <p><b>Faiblesses :</b> Un usage "solitaire" qui peine à créer de la cohésion d'équipe et de la performance métier réelle.</p>
+                    <p style="font-size:0.8rem; margin-top:20px; color:var(--text-dim)">Source : HolonIQ 2024 Market Report</p>
+                `
+            },
+            'fluent': {
+                title: 'Benchmark : goFLUENT',
+                content: `
+                    <p><b>Forces :</b> Présence historique dans le CAC 40, excellente crédibilité humaine.</p>
+                    <p><b>Faiblesses :</b> Modèle économique lourd, difficilement scalable pour des campus entiers sans exploser les budgets.</p>
+                    <p style="font-size:0.8rem; margin-top:20px; color:var(--text-dim)">Source : GSV Ventures Corporate Learning Analysis</p>
+                `
+            },
+            'langua': {
+                title: 'Benchmark : Langua IA',
+                content: `
+                    <p><b>Forces :</b> Rapidité technologique, coût imbattable.</p>
+                    <p><b>Faiblesses :</b> Absence totale de vision institutionnelle. Pas de dashboard pour les écoles, pas de parcours structuré CECRL.</p>
+                    <p style="font-size:0.8rem; margin-top:20px; color:var(--text-dim)">Source : EdTech Breakthrough Awards 2024</p>
+                `
+            },
+            'audit-modal': {
+                title: 'Demandez votre Audit <span class="questia-brand">QuestIA</span>',
+                content: `
+                    <form class="audit-form" id="auditForm" onsubmit="handleAuditSubmit(event)">
+                        <div class="form-block">
+                            <div class="form-block-title">01. Votre Identité</div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Prénom & Nom</label>
+                                    <input type="text" placeholder="ex: Jean Dupont" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Professionnel</label>
+                                    <input type="email" placeholder="jean@entreprise.fr" required>
+                                </div>
+                            </div>
+                            <div class="form-row" style="margin-top:20px">
+                                <div class="form-group">
+                                    <label>Nom de l'Entreprise / École</label>
+                                    <input type="text" placeholder="ex: HEC Paris" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Poste occupé</label>
+                                    <input type="text" placeholder="ex: Responsable Pédagogique" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-block">
+                            <div class="form-block-title">02. Contexte & Usage</div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Taille / Nombre d'utilisateurs</label>
+                                    <select required>
+                                        <option value="">Sélectionner...</option>
+                                        <option>10 - 50</option>
+                                        <option>50 - 200</option>
+                                        <option>200 - 1000</option>
+                                        <option>1000+</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Marché / Pays cible</label>
+                                    <input type="text" placeholder="ex: France, International">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-block">
+                            <div class="form-block-title">03. Votre Besoin</div>
+                            <div class="form-group">
+                                <label>Quel est votre problème linguistique principal ?</label>
+                                <textarea rows="3" placeholder="ex: Manque de pratique orale des étudiants..."></textarea>
+                            </div>
+                            <div class="form-row" style="margin-top:20px">
+                                <div class="form-group">
+                                    <label>Délai de mise en place</label>
+                                    <select>
+                                        <option>Immédiat</option>
+                                        <option>D'ici 3 mois</option>
+                                        <option>Prochaine rentrée</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Budget estimé (Fourchette)</label>
+                                    <input type="text" placeholder="ex: 5k€ - 15k€">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rgpd-check">
+                            <input type="checkbox" required id="rgpd">
+                            <label for="rgpd">J'accepte que <span class="questia-brand" style="font-size:0.7rem">QuestIA</span> traite mes données pour me proposer un audit personnalisé. Vos données restent confidentielles.</label>
+                        </div>
+
+                        <button type="submit" class="btn-action" style="background: var(--brand-gradient); border:none; color:var(--bg); font-weight:800; height:60px">Recevoir mon Audit Personnalisé</button>
+                    </form>
+                `
+            }
+        };
+
+        function handleAuditSubmit(event) {
+            event.preventDefault();
+            const content = document.getElementById('overlay-content');
+            content.innerHTML = `
+                <div style="text-align:center; padding: 40px 0;">
+                    <div style="font-size:4rem; margin-bottom:20px;">🚀</div>
+                    <h2 style="font-size:2.5rem; margin-bottom:20px;">Demande Reçue !</h2>
+                    <p style="font-size:1.2rem; color:var(--text-dim); margin-bottom:40px;">Un expert <span class="questia-brand">QuestIA</span> analyse vos besoins. Vous recevrez une proposition d'audit sous 24h.</p>
+                    <button class="btn-action" onclick="closeModal()">Retour à la Vision</button>
+                </div>
+            `;
+        }
+
+        function showModal(id) {
+            const data = modals[id];
+            const content = document.getElementById('overlay-content');
+            content.innerHTML = `
+                <h2 style="font-size:3rem; margin-bottom:30px; letter-spacing:-0.03em">${data.title}</h2>
+                <div style="font-size:1.2rem; line-height:1.6">${data.content}</div>
+                <button class="btn-action" style="margin-top:40px; width:auto; padding: 15px 40px" onclick="closeModal()">Retour à l'Analyse</button>
+            `;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

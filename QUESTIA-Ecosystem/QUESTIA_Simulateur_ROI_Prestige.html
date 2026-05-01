@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestIA - Simulateur d'Impact & ROI | Édition Prestige</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070d;
+            --card-bg: #0a0e18;
+            --accent: #00e5ff;
+            --accent-glow: #7b5cff;
+            --coral: #ff5a6a;
+            --text: #eef1f7;
+            --text-dim: #8a93a8;
+            --radius: 18px;
+            --gradient: linear-gradient(135deg, #00e5ff 0%, #7b5cff 50%, #ff5a6a 100%);
+            --panel-border: rgba(0, 229, 255, 0.15);
+        }
+
+        .questia-brand {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
+
+        header { text-align: center; margin-bottom: 60px; }
+        h1 { 
+            font-family: 'Cinzel'; 
+            font-size: clamp(2rem, 5vw, 3.5rem); 
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 6px; 
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .subtitle { 
+            font-family: 'Cinzel'; 
+            color: var(--accent); 
+            letter-spacing: 3px; 
+            font-size: 0.9rem; 
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Simulator Section */
+        .simulator-box {
+            background: var(--card-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .control-group { display: flex; flex-direction: column; gap: 15px; }
+        label { 
+            font-family: 'Cinzel'; 
+            font-size: 0.75rem; 
+            letter-spacing: 2px; 
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent);
+            transition: 0.3s;
+        }
+
+        .value-display {
+            font-family: 'Cinzel';
+            font-size: 1.5rem;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.4s;
+        }
+        .result-card:hover {
+            border-color: var(--accent);
+            background: rgba(0,229,255,0.05);
+            transform: translateY(-5px);
+        }
+        .result-val {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 5px;
+            font-family: 'Cinzel';
+        }
+        .result-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Comparison Table */
+        .comparison-section { margin-top: 80px; }
+        .comparison-title {
+            font-family: 'Cinzel';
+            text-align: center;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+
+        .comp-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        .comp-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .comp-card.old { border-left: 4px solid var(--coral); }
+        .comp-card.new { border-left: 4px solid var(--accent); background: rgba(0,229,255,0.02); }
+        
+        .comp-header {
+            font-family: 'Cinzel';
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        .old .comp-header { color: var(--coral); }
+        .new .comp-header { color: var(--accent); }
+
+        .comp-list { list-style: none; }
+        .comp-list li {
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .comp-list li b { color: var(--text); }
+        .old .comp-list li::before { content: "✕"; color: var(--coral); font-weight: bold; }
+        .new .comp-list li::before { content: "✓"; color: var(--accent); font-weight: bold; }
+
+        .vs {
+            font-family: 'Cinzel';
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            opacity: 0.5;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            border-top: 1px solid var(--panel-border);
+            padding-top: 40px;
+            font-family: 'Cinzel';
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        .btn-action {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 18px 45px;
+            background: var(--gradient);
+            color: var(--bg);
+            text-decoration: none;
+            font-family: 'Cinzel';
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            transition: 0.4s;
+            box-shadow: 0 10px 30px rgba(0,229,255,0.3);
+        }
+        .btn-action:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,229,255,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .comp-grid { grid-template-columns: 1fr; }
+            .vs { transform: rotate(90deg); margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="Vision_Strategique_Questia_Prestige.html" style="color: var(--accent); text-decoration: none; font-family: 'Cinzel'; font-size: 0.8rem; letter-spacing: 2px; border: 1px solid var(--panel-border); padding: 10px 20px; border-radius: 50px; transition: 0.3s; display: inline-block; margin-bottom: 30px;">
+                ← Retour à la Vision
+            </a>
+            <h1><span class="questia-brand">QuestIA</span> Simulator</h1>
+            <div class="subtitle">Modélisation de l'Impact Institutionnel & ROI</div>
+        </header>
+
+        <section class="simulator-box">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label>Nombre d'Étudiants</label>
+                    <input type="range" id="students" min="20" max="500" value="100" step="10">
+                    <div class="value-display"><span id="val-students">100</span> Étudiants</div>
+                </div>
+                <div class="control-group">
+                    <label>Durée du Challenge (Semaines)</label>
+                    <input type="range" id="duration" min="2" max="12" value="6" step="1">
+                    <div class="value-display"><span id="val-duration">6</span> Semaines</div>
+                </div>
+                <div class="control-group">
+                    <label>Type d'Établissement</label>
+                    <select id="org-type" style="background:transparent; border:1px solid var(--panel-border); color:var(--text); padding:10px; font-family:'Montserrat'; border-radius:8px;">
+                        <option value="school" selected>École Supérieure</option>
+                        <option value="of">Centre de Formation (OF)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <span class="result-val" id="res-engagement">85%</span>
+                    <span class="result-label">Taux d'Engagement Projeté</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-val" id="res-hours">1,500</span>
+                    <span class="result-label">Heures de Pratique Réelle</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-val" id="res-roi">7.5x</span>
+                    <span class="result-label">Multiplicateur d'Engagement</span>
+                </div>
+                <div class="result-card">
+                    <span class="result-val" id="res-cost">0€</span>
+                    <span class="result-label">Coût Net (via Financement)</span>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="QUESTIA_Intelligence_Methode_Calcul.html" style="color: var(--accent); text-decoration: none; font-family: 'Cinzel'; font-size: 0.7rem; letter-spacing: 2px; border: 1px solid var(--panel-border); padding: 8px 20px; border-radius: 50px; transition: 0.3s;">
+                    ✦ Comprendre la Méthodologie & Sources
+                </a>
+            </div>
+        </section>
+
+        <section class="comparison-section">
+            <h2 class="comparison-title">E-Learning Classique vs <span class="questia-brand">QuestIA</span></h2>
+            <div class="comp-grid">
+                <div class="comp-card old">
+                    <div class="comp-header">Statu Quo (E-Learning)</div>
+                    <ul class="comp-list">
+                        <li><b><span id="old-completion">15</span>%</b> de taux de complétion moyen.</li>
+                        <li><b>Pratique passive</b> : lecture et QCM individuels.</li>
+                        <li><b>Engagement faible</b> : 2h de pratique / mois.</li>
+                        <li><b>Preuve de valeur</b> : invisible ou limitée.</li>
+                    </ul>
+                </div>
+                <div class="vs">VS</div>
+                <div class="comp-card new">
+                    <div class="comp-header"><span class="questia-brand">QuestIA</span> Social-Immersion</div>
+                    <ul class="comp-list">
+                        <li><b><span id="new-completion">85</span>%</b> de taux de complétion visé.</li>
+                        <li><b>Simulation active</b> : jeux de rôle en équipe.</li>
+                        <li><b>Immersion forte</b> : 15h de pratique / mois.</li>
+                        <li><b>Preuve de valeur</b> : Dashboard institutionnel.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <a href="mailto:contact@questia.fr" class="btn-action">Demander une Étude d'Impact</a>
+
+        <footer>
+            <span class="questia-brand">QuestIA</span> © 2026 — ANALYSE PRÉDICTIVE B2B<br>
+            <span style="opacity: 0.5; font-size: 0.6rem; margin-top: 10px; display: block;">LES PROJECTIONS SONT BASÉES SUR LES DONNÉES PILOTES ET LE BENCHMARK IMMERSE/BABBEL 2025.</span>
+        </footer>
+    </div>
+
+    <script>
+        const inputStudents = document.getElementById('students');
+        const inputDuration = document.getElementById('duration');
+        const inputOrgType = document.getElementById('org-type');
+
+        const valStudents = document.getElementById('val-students');
+        const valDuration = document.getElementById('val-duration');
+
+        const resEngagement = document.getElementById('res-engagement');
+        const resHours = document.getElementById('res-hours');
+        const resCost = document.getElementById('res-cost');
+        const oldCompletion = document.getElementById('old-completion');
+        const newCompletion = document.getElementById('new-completion');
+
+        function updateSimulation() {
+            const students = parseInt(inputStudents.value);
+            const duration = parseInt(inputDuration.value);
+            const orgType = inputOrgType.value;
+
+            valStudents.innerText = students.toLocaleString();
+            valDuration.innerText = duration;
+
+            // Logic calculations
+            const completionRate = 0.85; // Target QuestIA
+            const oldRate = 0.15; // Trad E-learning
+            
+            const hoursPerWeek = 2.5; // Average QuestIA session time + missions
+            const totalHours = Math.round(students * completionRate * duration * hoursPerWeek);
+            
+            resHours.innerText = totalHours.toLocaleString();
+            
+            // Financial Impact
+            if (orgType === 'of') {
+                resCost.innerText = "0€*";
+                resCost.style.color = "var(--accent-glow)";
+            } else {
+                const costPerStudent = 3900 / 100; // Starter base
+                const estimatedCost = Math.round((students * 35) / 12); // Simplification for monthly feel
+                resCost.innerText = "~" + Math.round(students * 3.5) + "€/m";
+                resCost.style.color = "var(--accent)";
+            }
+
+            oldCompletion.innerText = Math.round(students * oldRate);
+            newCompletion.innerText = Math.round(students * completionRate);
+        }
+
+        inputStudents.addEventListener('input', updateSimulation);
+        inputDuration.addEventListener('input', updateSimulation);
+        inputOrgType.addEventListener('change', updateSimulation);
+
+        updateSimulation();
+    </script>
+</body>
+</html>

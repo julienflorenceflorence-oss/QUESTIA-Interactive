@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestIA - Méthodologie & Intelligence Stratégique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070d;
+            --card-bg: #0a0e18;
+            --accent: #00e5ff;
+            --accent-glow: #7b5cff;
+            --text: #eef1f7;
+            --text-dim: #8a93a8;
+            --radius: 18px;
+            --panel-border: rgba(0, 229, 255, 0.15);
+            --brand-gradient: linear-gradient(135deg, #00e5ff 0%, #7b5cff 50%, #ff5a6a 100%);
+        }
+
+        .questia-brand {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 80px 24px; }
+
+        header { margin-bottom: 60px; border-bottom: 1px solid var(--panel-border); padding-bottom: 30px; }
+        h1 { 
+            font-family: 'Cinzel'; 
+            font-size: 2.5rem; 
+            color: var(--accent);
+            letter-spacing: 4px; 
+            text-transform: uppercase;
+        }
+        .tagline { 
+            font-family: 'Cinzel'; 
+            font-size: 0.9rem; 
+            color: var(--accent-glow); 
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        section { margin-bottom: 60px; }
+        h2 { 
+            font-family: 'Cinzel'; 
+            color: var(--accent); 
+            font-size: 1.4rem; 
+            margin-bottom: 25px; 
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        h2::before { content: ""; width: 30px; height: 1px; background: var(--accent); }
+
+        .logic-card {
+            background: var(--card-bg);
+            border: 1px solid var(--panel-border);
+            padding: 30px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+        }
+        .logic-card h3 { 
+            font-family: 'Cinzel'; 
+            font-size: 1rem; 
+            color: var(--text); 
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .source-tag { font-size: 0.6rem; color: var(--accent-glow); opacity: 0.7; }
+
+        p { color: var(--text-dim); margin-bottom: 20px; font-size: 1rem; font-weight: 300; }
+        b { color: var(--text); font-weight: 600; }
+
+        .formula {
+            background: rgba(0,229,255,0.05);
+            padding: 20px;
+            border-radius: 12px;
+            font-family: monospace;
+            color: var(--accent);
+            font-size: 1.1rem;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px dashed var(--panel-border);
+        }
+
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .bench-item {
+            padding: 15px;
+            border-left: 2px solid var(--accent);
+            background: rgba(255,255,255,0.02);
+        }
+        .bench-val { display: block; font-weight: 700; color: var(--text); font-size: 1.2rem; }
+        .bench-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Cinzel';
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            border: 1px solid var(--accent);
+            padding: 12px 25px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .btn-back:hover { background: var(--accent); color: var(--bg); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="QUESTIA_Simulateur_ROI_Prestige.html" class="btn-back">← Retour au Simulateur</a>
+            <h1 style="margin-top:30px">Sources & Logique</h1>
+            <div class="tagline">Transparence Algorithmique et Benchmarks Marché</div>
+        </header>
+
+        <section>
+            <h2>01. La Base de Données</h2>
+            <p>Le simulateur <span class="questia-brand">QuestIA</span> n'est pas une simple calculatrice. Il s'appuie sur une <b>synthèse croisée de données réelles</b> issues du marché EdTech 2024-2025 et des objectifs de performance B2B définis pour le projet.</p>
+            
+            <div class="benchmark-grid">
+                <div class="bench-item">
+                    <span class="bench-label">Source</span>
+                    <span class="bench-val">EF EPI 2024</span>
+                    <p style="font-size:0.7rem; margin-top:5px">Rang 49/116. Déficit structurel de pratique orale identifié.</p>
+                </div>
+                <div class="bench-item">
+                    <span class="bench-label">Source</span>
+                    <span class="bench-val">Babbel B2B</span>
+                    <p style="font-size:0.7rem; margin-top:5px">90% d'activité à 6 mois. Référence pour le taux d'engagement.</p>
+                </div>
+                <div class="bench-item">
+                    <span class="bench-label">Source</span>
+                    <span class="bench-val">IMMERSE IA</span>
+                    <p style="font-size:0.7rem; margin-top:5px">7.5x plus d'engagement vs e-learning passif.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>02. Algorithme de Performance</h2>
+            <div class="logic-card">
+                <h3>Le "Gap" d'Engagement <span class="source-tag">Modèle Prédictif <span class="questia-brand">QuestIA</span></span></h3>
+                <p>Le simulateur oppose le <b>Statu Quo (E-Learning classique)</b> à la <b>Social-Immersion</b>. Nous appliquons un coefficient de succès de <b>85%</b> pour <span class="questia-brand">QuestIA</span>, basé sur la ludification et la responsabilité collective (Squads de 4).</p>
+                <div class="formula">
+                    Heures Totales = Étudiants × 0.85 × Semaines × 2.5h
+                </div>
+                <p>La base de <b>2.5h de pratique réelle</b> par semaine est une estimation conservatrice incluant les sessions de missions collectives et la préparation IA.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>03. Logique Économique & ROI</h2>
+            <div class="logic-card">
+                <h3>Optimisation du Financement <span class="source-tag">Analyse CPF/OPCO</span></h3>
+                <p>Pour les <b>Organismes de Formation (OF)</b>, le ROI financier est calculé sur une base de <b>coût net nul</b>. La licence SaaS est traitée comme une charge de production pédagogique éligible au financement CPF/OPCO.</p>
+                <p>Pour les <b>Écoles</b>, le ROI est mesuré par le coût à l'heure de pratique réelle : <b>divisé par 5</b> par rapport à un modèle de cours en petits groupes physiques.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>04. Benchmarks Clés Utilisés</h2>
+            <div class="benchmark-grid">
+                <div class="bench-item">
+                    <span class="bench-val">15%</span>
+                    <span class="bench-label">Complétion Trad.</span>
+                </div>
+                <div class="bench-item">
+                    <span class="bench-val">85%</span>
+                    <span class="bench-label">Cible <span class="questia-brand">QuestIA</span></span>
+                </div>
+                <div class="bench-item">
+                    <span class="bench-val">~2.40€</span>
+                    <span class="bench-label">Coût/Étudiant/Mois</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span class="questia-brand">QuestIA</span> © 2026 — INTELLIGENCE STRATÉGIQUE<br>
+            <span style="opacity: 0.5; font-size: 0.6rem; margin-top: 10px; display: block;">DOCUMENT DE RÉFÉRENCE POUR DÉCIDEURS PÉDAGOGIQUES.</span>
+        </footer>
+    </div>
+</body>
+</html>
