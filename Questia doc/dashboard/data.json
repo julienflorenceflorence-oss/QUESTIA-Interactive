@@ -1,0 +1,44 @@
+{
+    "global": {
+        "total_responses": 120,
+        "completion_rate": 86.7,
+        "avg_interest_score": 5.7,
+        "pilot_rate": 33.3,
+        "emails_collected": 40
+    },
+    "acquisition": {
+        "facebook": 18,
+        "direct": 24,
+        "linkedin": 19,
+        "instagram": 23,
+        "x": 18,
+        "email": 18
+    },
+    "profils": {
+        "ld": 56,
+        "pedagogique": 43,
+        "independant": 21
+    },
+    "tailles": {
+        "50_200": 39,
+        "plus_1000": 40,
+        "minus_50": 41
+    },
+    "frustrations": {
+        "completion": 79,
+        "generique": 77,
+        "roi": 69,
+        "orale": 83
+    },
+    "ia_interest": {
+        "priorite": 62,
+        "tester": 58
+    },
+    "squads_avg": 3.0,
+    "pilot_stats": {
+        "Oui": 0,
+        "Non": 0,
+        "non": 80,
+        "oui": 40
+    }
+}

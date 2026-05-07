@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuestIA — Pitch Deck Elite Enterprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070D;
+            --bg-2: #0A0E18;
+            --accent: #00E5FF;
+            --accent-glow: #7B5CFF;
+            --coral: #FF5A6A;
+            --text: #EEF1F7;
+            --text-dim: #8A93A8;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --radius: 12px;
+            --brand-gradient: linear-gradient(135deg, #00E5FF 0%, #7B5CFF 50%, #FF5A6A 100%);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* Background Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(1200px 600px at 12% -5%, rgba(123,92,255,0.15), transparent 55%),
+                radial-gradient(900px 500px at 95% 20%, rgba(0,229,255,0.12), transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .prestige-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        
+        header { text-align: center; margin-bottom: 80px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 40px; }
+        h1 { font-family: 'Cinzel'; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: clamp(2rem, 8vw, 3.5rem); letter-spacing: 5px; text-transform: uppercase; }
+        .subtitle { font-family: 'Cinzel'; color: var(--accent); opacity: 0.8; letter-spacing: 3px; font-size: 1rem; margin-top: 10px; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
+        
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            padding: 40px; 
+            border-radius: var(--radius); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+        .card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--brand-gradient); transform: scaleX(0); transition: 0.4s; transform-origin: left; }
+        .card:hover::before { transform: scaleX(1); }
+
+        .card-tag { font-family: 'Cinzel'; color: var(--accent); font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 10px; opacity: 0.8; }
+        .card-title { font-family: 'Cinzel'; color: #fff; font-size: 1.4rem; margin-bottom: 20px; letter-spacing: 1px; }
+        .card-content { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 30px; flex-grow: 1; }
+        .card-content b { color: #fff; }
+
+        .btn-prestige {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            text-align: center;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: var(--accent);
+            text-decoration: none;
+            font-family: 'Cinzel';
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: var(--radius);
+            transition: 0.3s;
+            cursor: pointer;
+            background: rgba(0, 229, 255, 0.05);
+        }
+        .btn-prestige:hover { background: var(--accent); color: var(--bg); font-weight: bold; box-shadow: 0 0 20px var(--accent); }
+
+        .fixed-dock { 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 600px; background: rgba(10, 14, 24, 0.85); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; padding: 10px 20px;
+            display: flex; gap: 15px; z-index: 1000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .dock-link { flex: 1; text-align: center; color: var(--text-dim); text-decoration: none; font-family: 'Cinzel'; font-size: 0.75rem; letter-spacing: 1px; transition: 0.3s; }
+        .dock-link:hover { color: var(--accent); }
+
+        .prestige-badge {
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-family: 'Cinzel';
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) { 
+            .grid { grid-template-columns: 1fr; }
+            .fixed-dock { display: none; } 
+        }
+
+        /* Modal Styles */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 7, 13, 0.98);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+        }
+        .overlay-content {
+            max-width: 800px;
+            color: var(--text);
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .close-overlay {
+            position: absolute; top: 40px; right: 40px;
+            cursor: pointer; font-size: 1.5rem; color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="prestige-container">
+        <header>
+            <div class="prestige-badge">Sovereign Immersion B2B</div>
+            <h1>QuestIA Elite Enterprise</h1>
+            <div class="subtitle">La Haute Performance Linguistique par la VR & l'IA</div>
+        </header>
+
+        <div class="grid">
+            <!-- Slide 1: Vision -->
+            <div class="card" id="vision">
+                <div>
+                    <div class="card-tag">01. Vision</div>
+                    <h2 class="card-title">Redéfinir l'Excellence</h2>
+                    <p class="card-content">
+                        QuestIA transforme la formation linguistique en une <b>expérience de haute fidélité</b>. Nous fusionnons l'efficacité du SaaS et le prestige de la Réalité Virtuelle pour créer les leaders de demain.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('vision')">L'Ambition 2026</button>
+            </div>
+
+            <!-- Slide 2: The Problem -->
+            <div class="card" id="problem">
+                <div>
+                    <div class="card-tag">02. Le Constat</div>
+                    <h2 class="card-title">Le Silence des Écoles</h2>
+                    <p class="card-content">
+                        L'e-learning traditionnel affiche <b>15% de complétion</b>. Les étudiants sortent diplômés sans savoir mener une négociation réelle. Un déficit structurel de pratique orale et culturelle.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('problem')">Analyse du Gap</button>
+            </div>
+
+            <!-- Slide 3: The Solution -->
+            <div class="card" id="solution">
+                <div>
+                    <div class="card-tag">03. Solution</div>
+                    <h2 class="card-title">Système Dual-Layer</h2>
+                    <p class="card-content">
+                        <b>Layer 1 (LMS)</b> : Préparation quotidienne sur Web/Mobile intégré. <br>
+                        <b>Layer 2 (VR)</b> : Arène d'Excellence pour les certifications et le Challenge National.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('solution')">Architecture Tech</button>
+            </div>
+
+            <!-- Slide 4: Integration -->
+            <div class="card" id="integration">
+                <div>
+                    <div class="card-tag">04. Déploiement</div>
+                    <h2 class="card-title">Le Cheval de Troie LMS</h2>
+                    <p class="card-content">
+                        Intégration native dans <b>Moodle, Canvas et Blackboard</b>. QuestIA devient le moteur de notation officiel, garantissant une rétention B2B maximale.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('integration')">Standard LTI 1.3</button>
+            </div>
+
+            <!-- Slide 5: VR Prestige -->
+            <div class="card" id="prestige">
+                <div>
+                    <div class="card-tag">05. Expérience</div>
+                    <h2 class="card-title">L'Arène de Maîtrise</h2>
+                    <p class="card-content">
+                        La VR n'est plus un gadget. C'est le lieu unique des <b>Passages de Grades</b>. Simulations de crise, Keigo japonais, négociation allemande. L'immersion totale.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('prestige')">Immersion VR</button>
+            </div>
+
+            <!-- Slide 6: Business Model -->
+            <div class="card" id="model">
+                <div>
+                    <div class="card-tag">06. Modèle</div>
+                    <h2 class="card-title">SaaS + HaaS</h2>
+                    <p class="card-content">
+                        Un mix de revenus récurrents (Licences) et de services premium (Learning Labs VR). Une scalabilité logicielle protégée par un hardware de prestige.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('model')">Structure Financière</button>
+            </div>
+
+            <!-- Slide 7: Advantage -->
+            <div class="card" id="advantage">
+                <div>
+                    <div class="card-tag">07. Défense</div>
+                    <h2 class="card-title">Pourquoi Nous Gagnons</h2>
+                    <p class="card-content">
+                        Là où Babbel fait de la répétition, QuestIA fait de la <b>Simulation</b>. Là où Moodle est un outil administratif, QuestIA est un <b>Vecteur d'Attractivité</b>.
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('advantage')">Le "Moat" Stratégique</button>
+            </div>
+
+            <!-- Slide 8: Roadmap -->
+            <div class="card" id="roadmap">
+                <div>
+                    <div class="card-tag">08. Futur</div>
+                    <h2 class="card-title">Vers la Certification</h2>
+                    <p class="card-content">
+                        Pilotes avec les Top-10 Business Schools, Certification Qualiopi T3 2026, et lancement du Label "QuestIA Certified Elite".
+                    </p>
+                </div>
+                <button class="btn-prestige" onclick="showDetail('roadmap')">Plan d'Exécution</button>
+            </div>
+        </div>
+
+        <footer style="margin-top: 80px; border-top: 1px solid var(--accent); padding-top: 20px; display: flex; justify-content: space-between; font-family: 'Cinzel'; font-size: 0.7rem; color: var(--accent);">
+            <div>QUESTIA © 2026 — CONFIDENTIEL</div>
+            <div>STRATÉGIE ELITE ENTERPRISE V1.0</div>
+        </footer>
+    </div>
+
+    <div class="fixed-dock">
+        <a href="QuestIA.html" class="dock-link">Expérience</a>
+        <a href="QUESTIA_Simulateur_ROI_Prestige.html" class="dock-link">ROI</a>
+        <a href="index.html" class="dock-link" style="font-weight: bold; border-bottom: 1px solid var(--accent);">Pitch Deck</a>
+        <button class="btn-prestige" style="flex: 1.5; margin-left: 10px;" onclick="showDetail('audit')">Réserver un Audit</button>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeDetail()">
+        <span class="close-overlay">✕</span>
+        <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <script>
+        const details = {
+            'vision': {
+                title: 'Vision : The Sovereign Immersion',
+                content: 'Devenir le standard mondial de la communication à haute performance. <br><br><b>Objectif :</b> 100% de nos diplômés sont capables de mener une réunion complexe en langue cible dès leur premier jour en entreprise.'
+            },
+            'problem': {
+                title: 'Le Gap de Performance',
+                content: 'L\'éducation actuelle est <b>"muette"</b>. Le e-learning passif frustre les apprenants et les entreprises. <br><br><b>Data :</b> 85% des DRH estiment que les jeunes diplômés manquent de "soft skills" linguistiques.'
+            },
+            'solution': {
+                title: 'L\'Écosystème Dual',
+                content: '<b>Phase 1 :</b> Acculturation Web (SaaS). <br><b>Phase 2 :</b> Validation VR (HaaS). <br><br>Cette double approche garantit à la fois le volume pédagogique et l\'intensité émotionnelle.'
+            },
+            'integration': {
+                title: 'Le Standard Enterprise',
+                content: 'Nous ne combattons pas les LMS, nous les habitons. <br><br><b>LTI 1.3 :</b> Connexion en 1 clic. <br><b>Dashboard :</b> Suivi en temps réel des progrès pour les formateurs et les OF Qualiopi.'
+            },
+            'prestige': {
+                title: 'VR : La Fin du QCM',
+                content: 'La VR permet de mesurer ce que l\'écrit ne peut pas : le stress, le ton, la réactivité. <br><br><b>Missions :</b> Pitcher à NYC, Négocier à Madrid, s\'excuser en Keigo à Tokyo.'
+            },
+            'model': {
+                title: 'Modèle Économique Hybride',
+                content: '<b>Revenus SaaS :</b> 15€ - 35€ / étudiant / mois. <br><b>Revenus HaaS :</b> Forfait Learning Lab (Maintenance + Hardware). <br><br><b>LTV :</b> Contrats institutionnels de 3 à 5 ans.'
+            },
+            'advantage': {
+                title: 'Nos Barrières à l\'Entrée',
+                content: '1. <b>Technologique :</b> Algorithmes de scoring propres. <br>2. <b>Réglementaire :</b> Qualiopi et LTI 1.3. <br>3. <b>Prestige :</b> Image de marque haut de gamme inaccessible aux apps B2C.'
+            },
+            'roadmap': {
+                title: 'Plan de Conquête',
+                content: '<b>Q1-Q2 2026 :</b> Déploiement des pilotes (10 écoles). <br><b>Q3 2026 :</b> Certification Qualiopi. <br><b>Q4 2026 :</b> Lancement du Challenge National VR.'
+            },
+            'audit': {
+                title: 'Étude d\'Impact Stratégique',
+                content: 'Parlons de la transformation de votre établissement. <br><br><a href="mailto:contact@questia.fr" class="btn-prestige" style="text-decoration:none;">Envoyer un message à contact@questia.fr</a>'
+            }
+        };
+
+        function showDetail(id) {
+            const data = details[id];
+            const content = document.getElementById('overlay-content');
+            content.innerHTML = `
+                <h2 style="font-family:'Cinzel'; font-size:2.2rem; color:var(--accent); margin-bottom:30px; letter-spacing:2px;">${data.title}</h2>
+                <div style="font-size:1.1rem; color:var(--text); line-height:1.8;">${data.content}</div>
+                <button class="btn-prestige" style="margin-top:50px; width:auto; padding: 15px 40px;" onclick="closeDetail()">Fermer</button>
+            `;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closeDetail() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

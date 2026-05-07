@@ -347,11 +347,10 @@
     </div>
 
     <div class="fixed-dock">
-        <a href="index.html" class="dock-btn" style="border: 1px solid rgba(255,255,255,0.1)">← Vision</a>
+        <a href="index.html" class="dock-btn">← Vision</a>
+        <a href="QuestIA.html" class="dock-btn" style="border: 1px solid rgba(0,229,255,0.3); color: var(--accent);">Expérience Immersive</a>
         <a href="#vision" class="dock-btn">Concept</a>
-        <a href="#scoring" class="dock-btn">Scoring</a>
-        <a href="#business" class="dock-btn">Business</a>
-        <a href="mailto:contact@questia.fr" class="dock-btn primary">Devenir Partenaire</a>
+        <button class="dock-btn primary" onclick="showModal('audit-modal')">Demander un Audit</button>
     </div>
 
     <!-- Modals -->
@@ -362,6 +361,13 @@
 
     <script>
         const details = {
+            'audit-modal': {
+                title: 'Audit Stratégique <span class="questia-brand">QuestIA</span>',
+                content: `
+                    <p style="margin-bottom:20px;">Contactez nos experts pour une analyse de votre établissement.</p>
+                    <a href="mailto:contact@questia.fr" class="btn-prestige" style="text-decoration:none;">Envoyer un mail à contact@questia.fr</a>
+                `
+            },
             'vision-detail': {
                 title: 'Vision Stratégique',
                 content: `

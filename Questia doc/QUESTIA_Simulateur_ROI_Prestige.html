@@ -7,23 +7,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #05070d;
-            --card-bg: #0a0e18;
-            --accent: #00e5ff;
-            --accent-glow: #7b5cff;
-            --coral: #ff5a6a;
-            --text: #eef1f7;
-            --text-dim: #8a93a8;
-            --radius: 18px;
-            --gradient: linear-gradient(135deg, #00e5ff 0%, #7b5cff 50%, #ff5a6a 100%);
-            --panel-border: rgba(0, 229, 255, 0.15);
+            --bg: #05070D;
+            --bg-2: #0A0E18;
+            --accent: #00E5FF;
+            --accent-glow: #7B5CFF;
+            --coral: #FF5A6A;
+            --text: #EEF1F7;
+            --text-dim: #8A93A8;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --radius: 12px;
+            --brand-gradient: linear-gradient(135deg, #00E5FF 0%, #7B5CFF 50%, #FF5A6A 100%);
+            --panel-border: rgba(255, 255, 255, 0.08);
         }
 
         .questia-brand {
             font-family: 'Bricolage Grotesque', sans-serif;
             font-weight: 800;
             letter-spacing: -0.02em;
-            background: var(--gradient);
+            background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: inline-block;
@@ -39,13 +40,25 @@
             min-height: 100vh;
         }
 
+        /* Background Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(1200px 600px at 12% -5%, rgba(123,92,255,0.15), transparent 55%),
+                radial-gradient(900px 500px at 95% 20%, rgba(0,229,255,0.12), transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 24px; }
 
         header { text-align: center; margin-bottom: 60px; }
         h1 { 
             font-family: 'Cinzel'; 
             font-size: clamp(2rem, 5vw, 3.5rem); 
-            background: var(--gradient);
+            background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 6px; 
@@ -69,6 +82,7 @@
             padding: 40px;
             margin-bottom: 40px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
         }
 
         .controls-grid {
@@ -121,7 +135,7 @@
         }
 
         .result-card {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.05);
             padding: 25px;
             border-radius: 15px;
@@ -170,6 +184,7 @@
             padding: 30px;
             border-radius: var(--radius);
             border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
         }
         .comp-card.old { border-left: 4px solid var(--coral); }
         .comp-card.new { border-left: 4px solid var(--accent); background: rgba(0,229,255,0.02); }
@@ -210,7 +225,7 @@
             padding-top: 40px;
             font-family: 'Cinzel';
             font-size: 0.7rem;
-            color: var(--text-dim);
+            color: var(--accent);
             letter-spacing: 2px;
         }
 
@@ -219,8 +234,8 @@
             width: fit-content;
             margin: 40px auto 0;
             padding: 18px 45px;
-            background: var(--gradient);
-            color: var(--bg);
+            background: var(--brand-gradient);
+            color: #fff;
             text-decoration: none;
             font-family: 'Cinzel';
             font-weight: 700;
@@ -229,15 +244,30 @@
             border-radius: 50px;
             transition: 0.4s;
             box-shadow: 0 10px 30px rgba(0,229,255,0.3);
+            border: none;
+            cursor: pointer;
         }
         .btn-action:hover {
             transform: scale(1.05);
             box-shadow: 0 15px 40px rgba(0,229,255,0.5);
         }
 
+        /* DOCK */
+        .fixed-dock { 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 600px; background: rgba(10, 14, 24, 0.85); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 50px; padding: 10px 20px;
+            display: flex; gap: 15px; z-index: 1000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+        .dock-btn { flex: 1; text-align: center; color: var(--text-dim); text-decoration: none; font-family: 'Cinzel'; font-size: 0.75rem; letter-spacing: 1px; transition: 0.3s; line-height: 40px; }
+        .dock-btn:hover { color: var(--accent); }
+        .dock-btn.primary { background: rgba(0, 229, 255, 0.1); border: 1px solid var(--accent); border-radius: 50px; color: var(--accent); line-height: 38px; }
+
         @media (max-width: 768px) {
             .comp-grid { grid-template-columns: 1fr; }
             .vs { transform: rotate(90deg); margin: 10px 0; }
+            .fixed-dock { display: none; }
         }
     </style>
 </head>
@@ -264,6 +294,11 @@
                     <div class="value-display"><span id="val-duration">6</span> Semaines</div>
                 </div>
                 <div class="control-group">
+                    <label>Engagement Hebdo (h/apprenant)</label>
+                    <input type="range" id="work-time" min="1" max="10" value="2.5" step="0.5">
+                    <div class="value-display"><span id="val-work-time">2.5</span>h / semaine</div>
+                </div>
+                <div class="control-group">
                     <label>Type d'Établissement</label>
                     <select id="org-type" style="background:transparent; border:1px solid var(--panel-border); color:var(--text); padding:10px; font-family:'Montserrat'; border-radius:8px;">
                         <option value="school" selected>École Supérieure</option>
@@ -281,13 +316,17 @@
                     <span class="result-val" id="res-hours">1,500</span>
                     <span class="result-label">Heures de Pratique Réelle</span>
                 </div>
+                <div class="result-card" style="border-color: var(--accent-glow); background: rgba(123, 92, 255, 0.05);">
+                    <span class="result-val" id="res-hours-per-student">15</span>
+                    <span class="result-label">Heures / Apprenant (Total)</span>
+                </div>
                 <div class="result-card">
                     <span class="result-val" id="res-roi">7.5x</span>
                     <span class="result-label">Multiplicateur d'Engagement</span>
                 </div>
                 <div class="result-card">
                     <span class="result-val" id="res-cost">0€</span>
-                    <span class="result-label">Coût Net (via Financement)</span>
+                    <span class="result-label">Coût Net (via OPCO / Plans)</span>
                 </div>
             </div>
             
@@ -316,14 +355,14 @@
                     <ul class="comp-list">
                         <li><b><span id="new-completion">85</span>%</b> de taux de complétion visé.</li>
                         <li><b>Simulation active</b> : jeux de rôle en équipe.</li>
-                        <li><b>Immersion forte</b> : 15h de pratique / mois.</li>
+                        <li><b>Immersion forte</b> : <span id="new-monthly-practice">10</span>h de pratique / mois.</li>
                         <li><b>Preuve de valeur</b> : Dashboard institutionnel.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <a href="mailto:contact@questia.fr" class="btn-action">Demander une Étude d'Impact</a>
+        <button onclick="showModal('audit-modal')" class="btn-action" style="border:none; cursor:pointer;">Demander une Étude d'Impact</button>
 
         <footer>
             <span class="questia-brand">QuestIA</span> © 2026 — ANALYSE PRÉDICTIVE B2B<br>
@@ -331,16 +370,57 @@
         </footer>
     </div>
 
+    <!-- NOUVEAU DOCK FONCTIONNEL -->
+    <div class="fixed-dock">
+        <a href="index.html" class="dock-btn">← Vision</a>
+        <a href="QuestIA.html" class="dock-btn" style="border: 1px solid rgba(0,229,255,0.3); color: var(--accent);">Expérience Immersive</a>
+        <a href="QUESTIA_Challenge_National_Prestige.html" class="dock-btn">Le Challenge</a>
+        <button class="dock-btn primary" onclick="showModal('audit-modal')">Demandez votre audit</button>
+    </div>
+
+    <!-- MODALS -->
+    <div id="overlay" class="overlay" onclick="closeModal()">
+        <span class="close-overlay" onclick="closeModal()">✕</span>
+        <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    </div>
+
     <script>
+        const modals = {
+            'audit-modal': {
+                title: 'Demandez votre Audit <span class="questia-brand">QuestIA</span>',
+                content: `
+                    <p style="margin-bottom:20px;">Nos experts analysent vos besoins pour vous proposer une simulation sur-mesure.</p>
+                    <a href="mailto:contact@questia.fr" class="btn-action" style="text-decoration:none; text-align:center;">Envoyer un Email à contact@questia.fr</a>
+                `
+            }
+        };
+
+        function showModal(id) {
+            const data = modals[id];
+            const content = document.getElementById('overlay-content');
+            content.innerHTML = `
+                <h2 style="font-size:2.5rem; margin-bottom:30px; letter-spacing:-0.03em; color:var(--accent); font-family:'Cinzel'">${data.title}</h2>
+                <div style="font-size:1.1rem; line-height:1.6">${data.content}</div>
+                <button class="btn-action" style="margin-top:40px; width:auto; padding: 15px 40px; cursor:pointer; border:none;" onclick="closeModal()">Retour au Simulateur</button>
+            `;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+        }
         const inputStudents = document.getElementById('students');
         const inputDuration = document.getElementById('duration');
+        const inputWorkTime = document.getElementById('work-time');
         const inputOrgType = document.getElementById('org-type');
 
         const valStudents = document.getElementById('val-students');
         const valDuration = document.getElementById('val-duration');
+        const valWorkTime = document.getElementById('val-work-time');
 
         const resEngagement = document.getElementById('res-engagement');
         const resHours = document.getElementById('res-hours');
+        const resHoursPerStudent = document.getElementById('res-hours-per-student');
         const resCost = document.getElementById('res-cost');
         const oldCompletion = document.getElementById('old-completion');
         const newCompletion = document.getElementById('new-completion');
@@ -348,19 +428,22 @@
         function updateSimulation() {
             const students = parseInt(inputStudents.value);
             const duration = parseInt(inputDuration.value);
+            const hoursPerWeek = parseFloat(inputWorkTime.value);
             const orgType = inputOrgType.value;
 
             valStudents.innerText = students.toLocaleString();
             valDuration.innerText = duration;
+            valWorkTime.innerText = hoursPerWeek;
 
             // Logic calculations
             const completionRate = 0.85; // Target QuestIA
             const oldRate = 0.15; // Trad E-learning
             
-            const hoursPerWeek = 2.5; // Average QuestIA session time + missions
-            const totalHours = Math.round(students * completionRate * duration * hoursPerWeek);
+            const hoursPerApprentice = duration * hoursPerWeek * completionRate;
+            const totalHours = Math.round(students * hoursPerApprentice);
             
             resHours.innerText = totalHours.toLocaleString();
+            resHoursPerStudent.innerText = Math.round(hoursPerApprentice * 10) / 10;
             
             // Financial Impact
             if (orgType === 'of') {
@@ -375,10 +458,12 @@
 
             oldCompletion.innerText = Math.round(students * oldRate);
             newCompletion.innerText = Math.round(students * completionRate);
+            document.getElementById('new-monthly-practice').innerText = Math.round(hoursPerWeek * 4);
         }
 
         inputStudents.addEventListener('input', updateSimulation);
         inputDuration.addEventListener('input', updateSimulation);
+        inputWorkTime.addEventListener('input', updateSimulation);
         inputOrgType.addEventListener('change', updateSimulation);
 
         updateSimulation();

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUESTIA — Dashboard Stratégique 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg: #05070D;
+            --surface: #0A0E18;
+            --accent: #00E5FF;
+            --accent-purple: #7B5CFF;
+            --accent-energy: #FF5A6A;
+            --text: #EEF1F7;
+            --text-muted: #8A93A8;
+            --border: rgba(255, 255, 255, 0.08);
+            --gradient: linear-gradient(135deg, #00E5FF 0%, #7B5CFF 50%, #FF5A6A 100%);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 40px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 5px;
+            margin: 0;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--gradient);
+            opacity: 0.5;
+        }
+
+        .kpi-value {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-family: 'Cinzel', serif;
+        }
+
+        .kpi-label {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .chart-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+            min-height: 350px;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--text);
+            margin-top: 0;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            width: 4px;
+            height: 20px;
+            background: var(--accent);
+        }
+
+        .btn-export {
+            background: var(--gradient);
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.3);
+        }
+
+        @media (max-width: 1000px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>QuestIA Intelligence</h1>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Tableau de bord de contrôle des réponses — Session 2026</p>
+        </div>
+        <button class="btn-export" onclick="exportData()">Exporter CSV</button>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <span class="kpi-value" id="total-responses">0</span>
+            <span class="kpi-label">Réponses Totales</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-value" id="completion-rate">0%</span>
+            <span class="kpi-label">Taux de Complétion</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-value" id="interest-score">0/10</span>
+            <span class="kpi-label">Intérêt Moyen</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-value" id="pilot-rate">0%</span>
+            <span class="kpi-label">Volontaires Pilote</span>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="chart-container">
+            <h2>Acquisition par Canal</h2>
+            <canvas id="chart-acquisition"></canvas>
+        </div>
+        <div class="chart-container">
+            <h2>Profil des Organisations</h2>
+            <canvas id="chart-profils"></canvas>
+        </div>
+        <div class="chart-container">
+            <h2>Adhésion IA Conversationnelle</h2>
+            <canvas id="chart-ia"></canvas>
+        </div>
+        <div class="chart-container">
+            <h2>Frustrations Majoritaires</h2>
+            <canvas id="chart-frustrations"></canvas>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        const colors = ['#00E5FF', '#7B5CFF', '#FF5A6A', '#FFB547', '#B8FF3D'];
+
+        function initDashboard() {
+            try {
+                const data = dashboardData;
+                if (!data) throw new Error("Données manquantes");
+
+                // Update KPIs
+                document.getElementById('total-responses').innerText = data.global.total_responses;
+                document.getElementById('completion-rate').innerText = data.global.completion_rate + '%';
+                document.getElementById('interest-score').innerText = data.global.avg_interest_score + '/10';
+                document.getElementById('pilot-rate').innerText = data.global.pilot_rate + '%';
+
+                // Charts config
+                Chart.defaults.color = '#8A93A8';
+                Chart.defaults.font.family = 'Montserrat';
+
+                // Acquisition Chart
+                new Chart(document.getElementById('chart-acquisition'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(data.acquisition).map(s => s.toUpperCase()),
+                        datasets: [{
+                            data: Object.values(data.acquisition),
+                            backgroundColor: colors,
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { 
+                        plugins: { legend: { position: 'right' } },
+                        cutout: '70%'
+                    }
+                });
+
+                // Profils Chart
+                new Chart(document.getElementById('chart-profils'), {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(data.profils),
+                        datasets: [{
+                            label: 'Réponses',
+                            data: Object.values(data.profils),
+                            backgroundColor: colors[0],
+                            borderRadius: 5
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        plugins: { legend: { display: false } },
+                        scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' } }, y: { grid: { display: false } } }
+                    }
+                });
+
+                // IA Interest Chart
+                new Chart(document.getElementById('chart-ia'), {
+                    type: 'polarArea',
+                    data: {
+                        labels: Object.keys(data.ia_interest),
+                        datasets: [{
+                            data: Object.values(data.ia_interest),
+                            backgroundColor: colors.map(c => c + '88'),
+                            borderColor: colors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: { r: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { display: false } } }
+                    }
+                });
+
+                // Frustrations Chart
+                new Chart(document.getElementById('chart-frustrations'), {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(data.frustrations),
+                        datasets: [{
+                            label: 'Occurrences',
+                            data: Object.values(data.frustrations),
+                            backgroundColor: 'transparent',
+                            borderColor: varColor('--accent-energy'),
+                            borderWidth: 2,
+                            pointBackgroundColor: varColor('--accent-energy')
+                        }]
+                    },
+                    options: {
+                        plugins: { legend: { display: false } },
+                        scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(255,255,255,0.05)' } } }
+                    }
+                });
+
+            } catch (e) {
+                console.error("Dashboard Error:", e);
+                alert("Erreur de chargement des données. Veuillez relancer le script Python.");
+            }
+        }
+
+        function varColor(name) {
+            return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        }
+
+        function exportData() {
+            // Simple placeholder for CSV export logic
+            alert("Préparation du fichier d'export CSV (complet)...");
+            window.location.href = '../scripts/sample_tally_export.csv';
+        }
+
+        initDashboard();
+    </script>
+</body>
+</html>

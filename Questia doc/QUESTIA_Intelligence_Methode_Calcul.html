@@ -174,8 +174,8 @@
         <section>
             <h2>03. Logique Économique & ROI</h2>
             <div class="logic-card">
-                <h3>Optimisation du Financement <span class="source-tag">Analyse CPF/OPCO</span></h3>
-                <p>Pour les <b>Organismes de Formation (OF)</b>, le ROI financier est calculé sur une base de <b>coût net nul</b>. La licence SaaS est traitée comme une charge de production pédagogique éligible au financement CPF/OPCO.</p>
+                <h3>Optimisation du Financement <span class="source-tag">Analyse OPCO / Plans de formation</span></h3>
+                <p>Pour les <b>Organismes de Formation (OF)</b>, le ROI financier est calculé sur une base de <b>coût net nul</b>. La licence SaaS est traitée comme une charge de production pédagogique éligible au financement OPCO ou aux plans de développement des compétences.</p>
                 <p>Pour les <b>Écoles</b>, le ROI est mesuré par le coût à l'heure de pratique réelle : <b>divisé par 5</b> par rapport à un modèle de cours en petits groupes physiques.</p>
             </div>
         </section>
@@ -198,10 +198,55 @@
             </div>
         </section>
 
+        <div style="text-align:center; margin: 40px 0;">
+            <button onclick="showModal('audit-modal')" class="btn-action">Prêt pour la Révolution ?</button>
+        </div>
+
         <footer>
             <span class="questia-brand">QuestIA</span> © 2026 — INTELLIGENCE STRATÉGIQUE<br>
             <span style="opacity: 0.5; font-size: 0.6rem; margin-top: 10px; display: block;">DOCUMENT DE RÉFÉRENCE POUR DÉCIDEURS PÉDAGOGIQUES.</span>
         </footer>
     </div>
+
+    <!-- NOUVEAU DOCK FONCTIONNEL -->
+    <div class="fixed-dock">
+        <a href="QUESTIA_Simulateur_ROI_Prestige.html" class="dock-btn">← Simulateur</a>
+        <a href="QuestIA.html" class="dock-btn" style="border: 1px solid rgba(0,229,255,0.3); color: var(--accent);">Expérience Immersive</a>
+        <a href="index.html" class="dock-btn">Vision</a>
+        <button class="dock-btn primary" onclick="showModal('audit-modal')">Audit Gratuit</button>
+    </div>
+
+    <!-- MODALS -->
+    <div id="overlay" class="overlay" onclick="closeModal()">
+        <span class="close-overlay" onclick="closeModal()">✕</span>
+        <div id="overlay-content" class="overlay-content" onclick="event.stopPropagation()"></div>
+    </div>
+
+    <script>
+        const modals = {
+            'audit-modal': {
+                title: 'Audit Stratégique <span class="questia-brand">QuestIA</span>',
+                content: `
+                    <p style="margin-bottom:20px;">Contactez nos experts pour une analyse de votre dispositif pédagogique.</p>
+                    <a href="mailto:contact@questia.fr" class="btn-action">Envoyer un mail</a>
+                `
+            }
+        };
+
+        function showModal(id) {
+            const data = modals[id];
+            const content = document.getElementById('overlay-content');
+            content.innerHTML = `
+                <h2 style="font-size:2.5rem; margin-bottom:30px; letter-spacing:-0.03em; color:var(--accent); font-family:'Cinzel'">${data.title}</h2>
+                <div style="font-size:1.1rem; line-height:1.6">${data.content}</div>
+                <button class="btn-action" style="margin-top:40px; background:transparent; border:1px solid var(--accent); color:var(--accent);" onclick="closeModal()">Fermer</button>
+            `;
+            document.getElementById('overlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

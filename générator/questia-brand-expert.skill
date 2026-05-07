@@ -1,0 +1,35 @@
+# Questia Brand Expert
+
+Ce skill garantit une cohérence visuelle absolue pour l'écosystème QuestIA en appliquant la charte graphique "Cyber-Prestige".
+
+## Identité Visuelle
+
+### 1. Palette de Couleurs (Hex)
+| Usage | Couleur | Hex |
+| :--- | :---: | :--- |
+| Fond Principal | ■ | `#05070D` |
+| Fond Secondaire | ■ | `#0A0E18` |
+| Accent Principal (CTA) | ■ | `#00E5FF` |
+| Accent Complémentaire | ■ | `#7B5CFF` |
+| Accent d'Énergie | ■ | `#FF5A6A` |
+| Texte Principal | ■ | `#EEF1F7` |
+| Texte Secondaire | ■ | `#8A93A8` |
+
+### 2. Dégradé Signature
+Le dégradé de marque doit être utilisé pour les éléments forts (titres, boutons primaires, barres de progression) :
+`linear-gradient(135deg, #00E5FF 0%, #7B5CFF 50%, #FF5A6A 100%)`
+
+### 3. Typographie
+- **Titres (H1, H2)** : `Cinzel` (Majuscules, espacement de lettres accru).
+- **Corps de texte** : `Montserrat` (Poids 300 à 600).
+- **Citations / Emphase** : `Playfair Display` (Italique).
+
+## Directives de Design (UI/UX)
+
+- **Effets Glow** : Utiliser des ombres portées cyan (`rgba(0, 229, 255, 0.4)`) pour les éléments interactifs et le logo.
+- **Glassmorphism** : Pour les panneaux, utiliser `rgba(255, 255, 255, 0.03)` avec une bordure de `1px solid rgba(255, 255, 255, 0.08)`.
+- **Hiérarchie** : Réserver le Cyan (#00E5FF) pour l'action, le Violet et le Rouge pour la profondeur et le dynamisme.
+
+## Ressources
+- **Logo** : `QUESTIA\charte graphique\Logo V2.png`
+- **Référence** : `QUESTIA\charte graphique\charte graphique des couleurs.md`
