@@ -75,6 +75,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
             opacity: 0;
             visibility: hidden;
             transition: opacity 1s ease-in-out;
@@ -92,6 +94,7 @@
 
         /* --- ANIMATED TITLES --- */
         .giant-title {
+            width: 100%;
             font-size: clamp(48px, 10vw, 140px);
             font-weight: 900;
             line-height: 0.9;
@@ -108,6 +111,7 @@
         }
 
         .slide-title {
+            width: 100%;
             font-size: clamp(32px, 6vw, 68px);
             font-weight: 900;
             color: var(--accent-neon);
@@ -125,6 +129,8 @@
             border-radius: 0 15px 15px 0;
             transition: 0.3s;
             animation: card-pulse 8s infinite alternate ease-in-out;
+            text-align: left;
+            width: 100%;
         }
 
         .text-tile h3 { font-size: clamp(18px, 4vw, 24px); margin-bottom: 10px; }
@@ -148,6 +154,7 @@
             padding: clamp(20px, 4vw, 40px);
             text-align: center;
             transition: 0.4s;
+            width: 100%;
         }
 
         .metric-value { font-size: clamp(40px, 8vw, 90px) !important; font-weight: 900; }
@@ -173,6 +180,9 @@
         }
         .logo-box { 
             animation: logo-entrance 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            justify-content: center;
+            width: 100%;
         }
         @keyframes logo-entrance {
             from { opacity: 0; transform: scale(0.8); filter: blur(20px); }
@@ -205,7 +215,12 @@
 
         /* --- RESPONSIVE GRIDS --- */
         @media (max-width: 768px) {
-            .slide { padding: 30px 20px; justify-content: flex-start; }
+            .slide { 
+                padding: 30px 20px; 
+                justify-content: flex-start; 
+            }
+            #s1 { justify-content: center; }
+            
             #viewport { height: 95vh; }
             .giant-title { margin-top: 40px; }
             .slide-title { margin-top: 20px; }
@@ -219,10 +234,12 @@
             #s2 > div, #s3 > div, #s6 > div, #s7 > div, #s9 > div {
                 grid-template-columns: 1fr !important;
                 gap: 20px !important;
+                width: 100%;
             }
             #s5 .metrics-container {
                 flex-direction: column !important;
                 gap: 15px !important;
+                width: 100%;
             }
             #s8 .business-card {
                 padding: 40px 20px !important;
@@ -243,7 +260,7 @@
 
         <!-- Slide 1: Welcome -->
         <div class="slide active" id="s1">
-            <div class="logo-box" style="text-align: center;">
+            <div class="logo-box">
                 <img src="assets/logo.png" alt="QuestIA Logo" style="height: 320px; filter: drop-shadow(0 0 60px rgba(0, 229, 255, 0.5));">
             </div>
         </div>
