@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>QuestIA - Pitch Deck Immersion</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
         :root {
             --bg-dark: #020108;
             --accent-purple: #8b5cf6;
-            --accent-neon: #00E5FF; /* Unified with QuestIA Cyan */
+            --accent-neon: #00E5FF;
             --violet: #7B5CFF;
             --coral: #FF5A6A;
             --text-white: #ffffff;
@@ -27,33 +27,38 @@
             background-color: var(--bg-dark);
             color: var(--text-white);
             font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: crosshair;
         }
 
-        /* --- BACKGROUND PARTICLES --- */
         #particle-canvas {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             opacity: 0.3;
         }
 
         #viewport {
-            width: 95vw;
-            height: 90vh;
-            max-width: var(--slide-width);
-            max-height: var(--slide-height);
+            width: 100vw;
+            height: 100vh;
             background-color: rgba(6, 2, 20, 0.8);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 100px rgba(0, 229, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 8px;
-            margin: 20px;
+        }
+
+        @media (min-width: 768px) {
+            #viewport {
+                width: 95vw;
+                height: 90vh;
+                max-width: var(--slide-width);
+                max-height: var(--slide-height);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                box-shadow: 0 0 100px rgba(0, 229, 255, 0.1);
+            }
         }
 
         .grid-overlay {
@@ -66,7 +71,6 @@
             pointer-events: none;
         }
 
-        /* --- SLIDE ENGINE --- */
         .slide {
             position: absolute;
             top: 0; left: 0;
@@ -76,15 +80,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.8s ease-in-out;
             z-index: 2;
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
             overflow-y: auto;
+            text-align: center;
         }
 
         .slide.active {
@@ -92,161 +95,134 @@
             visibility: visible;
         }
 
-        /* --- ANIMATED TITLES --- */
+        /* Slide specific overrides */
+        #s1 { 
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 0 !important;
+        }
+
         .giant-title {
-            width: 100%;
-            font-size: clamp(48px, 10vw, 140px);
+            font-size: clamp(42px, 10vw, 120px);
             font-weight: 900;
-            line-height: 0.9;
+            line-height: 1;
             background: linear-gradient(135deg, #fff, var(--accent-neon), var(--violet));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
-            animation: title-float 6s infinite ease-in-out;
-        }
-
-        @keyframes title-float {
-            0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.2)); }
-            50% { transform: translateY(-10px); filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.5)); }
         }
 
         .slide-title {
-            width: 100%;
-            font-size: clamp(32px, 6vw, 68px);
+            font-size: clamp(28px, 6vw, 60px);
             font-weight: 900;
             color: var(--accent-neon);
-            margin-bottom: clamp(15px, 3vw, 30px);
-            letter-spacing: -2px;
+            margin-bottom: 20px;
             text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
         }
 
-        /* --- FLOATING CARDS --- */
         .text-tile {
-            background: rgba(255, 255, 255, 0.02);
-            border-left: 3px solid var(--accent-neon);
-            padding: clamp(15px, 3vw, 25px) clamp(20px, 4vw, 30px);
-            margin-bottom: clamp(15px, 3vw, 30px);
-            border-radius: 0 15px 15px 0;
-            transition: 0.3s;
-            animation: card-pulse 8s infinite alternate ease-in-out;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid var(--accent-neon);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0 10px 10px 0;
             text-align: left;
             width: 100%;
+            max-width: 800px;
         }
 
-        .text-tile h3 { font-size: clamp(18px, 4vw, 24px); margin-bottom: 10px; }
-        .text-tile p { font-size: clamp(14px, 3vw, 18px); line-height: 1.5; }
+        .text-tile h3 { font-size: 20px; margin-bottom: 8px; color: var(--accent-neon); }
+        .text-tile p { font-size: 16px; line-height: 1.4; color: #fff; }
 
-        .text-tile:hover {
-            background: rgba(0, 229, 255, 0.05);
-            transform: translateX(10px);
-        }
-
-        @keyframes card-pulse {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
-        }
-
-        /* --- METRICS & VIZ --- */
-        .metric-card {
-            background: rgba(0, 229, 255, 0.02);
-            border: 1px solid rgba(0, 229, 255, 0.1);
-            border-radius: 20px;
-            padding: clamp(20px, 4vw, 40px);
-            text-align: center;
-            transition: 0.4s;
+        .metrics-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
             width: 100%;
+            justify-content: center;
         }
 
-        .metric-value { font-size: clamp(40px, 8vw, 90px) !important; font-weight: 900; }
-        .metric-label { font-size: clamp(12px, 2vw, 16px); color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
-
-        .metric-card:hover {
-            border-color: var(--accent-neon);
-            box-shadow: 0 0 40px rgba(0, 229, 255, 0.2);
-            transform: scale(1.05);
+        .metric-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1 1 200px;
+            max-width: 300px;
         }
 
-        .progress-box {
-            width: 100%; background: rgba(255,255,255,0.05); height: 12px; border-radius: 6px; 
-            margin-top: clamp(20px, 4vw, 40px); overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.2);
+        .metric-value { 
+            font-size: clamp(40px, 8vw, 70px) !important; 
+            font-weight: 900; 
+            display: block;
         }
-        .progress-bar { height: 100%; width: 0; background: var(--gradient-flow); transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* --- LOGO SCAN --- */
-        .logo-box img {
-            max-width: 100%;
-            height: auto !important;
-            max-height: clamp(150px, 40vh, 320px) !important;
-        }
-        .logo-box { 
-            animation: logo-entrance 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .logo-box {
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            width: 100%;
-        }
-        @keyframes logo-entrance {
-            from { opacity: 0; transform: scale(0.8); filter: blur(20px); }
-            to { opacity: 1; transform: scale(1); filter: blur(0); }
+            align-items: center;
         }
 
-        .logo-line {
-            width: min(260px, 80%); height: 2px;
-            background: rgba(0, 229, 255, 0.2);
-            margin: 30px auto; position: relative; overflow: hidden;
+        .logo-box img {
+            max-width: 80%;
+            max-height: 60vh;
+            object-fit: contain;
+            filter: drop-shadow(0 0 40px rgba(0, 229, 255, 0.4));
         }
-        .logo-line::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--accent-neon);
-            animation: scan 2s infinite ease-in-out;
-        }
-        @keyframes scan { from { left: -100%; } to { left: 100%; } }
 
-        /* --- UI CONTROLS --- */
-        .nav-ui { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 15px; z-index: 1000; }
+        .nav-ui {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
         .btn {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 229, 255, 0.3);
-            color: var(--accent-neon); width: clamp(44px, 10vw, 60px); height: clamp(44px, 10vw, 60px); border-radius: 50%;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: clamp(16px, 4vw, 20px); transition: 0.3s; backdrop-filter: blur(5px);
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid var(--accent-neon);
+            color: var(--accent-neon);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
         }
-        .btn:hover { background: var(--accent-neon); color: #000; box-shadow: 0 0 30px var(--accent-neon); transform: scale(1.1); }
 
-        .slide-num { position: absolute; bottom: clamp(25px, 5vw, 55px); left: clamp(20px, 5vw, 80px); font-family: 'Orbitron'; font-size: clamp(8px, 1.5vw, 11px); letter-spacing: 5px; color: var(--text-dim); }
+        .slide-num {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            font-family: monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+        }
 
-        /* --- RESPONSIVE GRIDS --- */
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .slide { 
-                padding: 30px 20px; 
-                justify-content: flex-start; 
+                padding: 40px 20px;
+                justify-content: flex-start;
+                display: block; /* Switch to block for natural scrolling if content overflows */
             }
-            #s1 { justify-content: center; }
+            #s1 { display: flex !important; } /* Stay flex for centering */
             
-            #viewport { height: 95vh; }
-            .giant-title { margin-top: 40px; }
-            .slide-title { margin-top: 20px; }
+            .giant-title, .slide-title { text-align: center; width: 100%; }
+            .text-tile { margin-left: auto; margin-right: auto; }
             
-            /* Responsive layout for grids and flex containers */
-            #s2 .slide-content, #s3 .slide-content, #s6 .slide-content, #s7 .slide-content, #s9 .slide-content {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 20px !important;
-            }
-            #s2 > div, #s3 > div, #s6 > div, #s7 > div, #s9 > div {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-                width: 100%;
-            }
-            #s5 .metrics-container {
-                flex-direction: column !important;
-                gap: 15px !important;
-                width: 100%;
-            }
+            .metric-card { flex: 1 1 100%; max-width: none; }
+            
             #s8 .business-card {
-                padding: 40px 20px !important;
+                padding: 30px 15px !important;
                 width: 100% !important;
-            }
-            #s8 div[style*="font-size: 120px"] {
-                font-size: 60px !important;
+                border-radius: 20px !important;
             }
         }
     </style>
@@ -261,74 +237,67 @@
         <!-- Slide 1: Welcome -->
         <div class="slide active" id="s1">
             <div class="logo-box">
-                <img src="assets/logo.png" alt="QuestIA Logo" style="height: 320px; filter: drop-shadow(0 0 60px rgba(0, 229, 255, 0.5));">
+                <img src="assets/logo.png" alt="QuestIA Logo">
             </div>
         </div>
 
         <!-- Slide 2: The Shock -->
         <div class="slide" id="s2">
             <h2 class="giant-title">5.000.000 £</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                <div class="text-tile">
-                    <h3>L'Échec Invisible</h3>
-                    <p>Londres. City. Un contrat stratégique perdu par confusion culturelle.</p>
-                </div>
-                <div class="text-tile" style="animation-delay: 0.5s;">
-                    <h3>La Barrière Muette</h3>
-                    <p>Ce n'est plus la grammaire, mais <strong>l'intelligence des codes</strong> qui manque.</p>
-                </div>
+            <div class="text-tile">
+                <h3>L'Échec Invisible</h3>
+                <p>Londres. City. Un contrat stratégique perdu par confusion culturelle.</p>
+            </div>
+            <div class="text-tile" style="animation-delay: 0.2s;">
+                <h3>La Barrière Muette</h3>
+                <p>Ce n'est plus la grammaire, mais <strong>l'intelligence des codes</strong> qui manque.</p>
             </div>
         </div>
 
         <!-- Slide 3: Patrice -->
         <div class="slide" id="s3">
             <h2 class="slide-title">LE CAS PATRICE</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                <div class="text-tile">
-                    <h3>Le Paradoxe du Savoir</h3>
-                    <p>Directeur d'OF Privé. Ses apprenants valident les tests mais <strong>restent muets</strong> sur le terrain.</p>
-                </div>
-                <div class="text-tile" style="animation-delay: 0.3s; border-color: var(--violet);">
-                    <h3>Excellence Qualiopi</h3>
-                    <p>Besoin de prouver un <strong>ROI Pédagogique</strong> réel pour sécuriser les financements.</p>
-                </div>
+            <div class="text-tile">
+                <h3>Le Paradoxe du Savoir</h3>
+                <p>Directeur d'OF Privé. Ses apprenants valident les tests mais <strong>restent muets</strong> sur le terrain.</p>
+            </div>
+            <div class="text-tile" style="border-color: var(--violet);">
+                <h3>Excellence Qualiopi</h3>
+                <p>Besoin de prouver un <strong>ROI Pédagogique</strong> réel pour sécuriser les financements.</p>
             </div>
         </div>
 
         <!-- Slide 4: Data 49 -->
         <div class="slide" id="s4">
             <h2 class="slide-title">49<sup>ème</sup> RANG</h2>
-            <p style="font-size: 28px; max-width: 900px; color: #fff; font-weight: 300;">Le retard français : Derniers d'Europe de l'Ouest. <br><strong>Une opportunité historique pour l'IA.</strong></p>
-            <div class="progress-box">
-                <div class="progress-bar" id="data-bar" style="background: linear-gradient(90deg, var(--violet), var(--accent-neon));"></div>
+            <p style="font-size: clamp(18px, 4vw, 24px); margin-bottom: 30px;">Le retard français : Derniers d'Europe de l'Ouest. <br><strong>Une opportunité historique pour l'IA.</strong></p>
+            <div style="width: 100%; background: rgba(255,255,255,0.05); height: 10px; border-radius: 5px; overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.2);">
+                <div id="data-bar" style="height: 100%; width: 0; background: linear-gradient(90deg, var(--violet), var(--accent-neon)); transition: width 2s ease;"></div>
             </div>
-            <p style="margin-top: 20px; font-family: 'Orbitron'; color: var(--accent-neon); letter-spacing: 5px; font-size: 10px;">INDICE DE COMPÉTENCE APPLIQUÉ : 43.5%</p>
+            <p style="margin-top: 15px; font-size: 12px; color: var(--accent-neon); letter-spacing: 2px;">INDICE DE COMPÉTENCE : 43.5%</p>
         </div>
 
         <!-- Slide 5: Commando -->
         <div class="slide" id="s5">
             <h2 class="slide-title">VALIDATION TERRAIN</h2>
-            <div class="metrics-container" style="display: flex; gap: 30px;">
-                <div class="metric-card" style="flex:1"><div class="metric-value counter" data-val="51">0</div><div class="metric-label">Calls</div></div>
-                <div class="metric-card" style="flex:1; border-color: var(--violet);"><div class="metric-value counter" data-val="7">0</div><div class="metric-label">RDVs</div></div>
-                <div class="metric-card" style="flex:1"><div class="metric-value counter" data-val="44">0</div><div class="metric-label">Emails</div></div>
-            </div>
-            <div class="text-tile" style="margin-top: 40px; border-left: 5px solid var(--coral);">
-                <p style="font-size: 24px; font-style: italic; color: #fff;">"C'est l'outil qui transforme enfin la langue en réflexe de survie."</p>
+            <div class="metrics-container">
+                <div class="metric-card"><div class="metric-value counter" data-val="51">0</div><div class="metric-label">Calls</div></div>
+                <div class="metric-card" style="border-color: var(--violet);"><div class="metric-value counter" data-val="7">0</div><div class="metric-label">RDVs</div></div>
+                <div class="metric-card"><div class="metric-value counter" data-val="44">0</div><div class="metric-label">Emails</div></div>
             </div>
         </div>
 
         <!-- Slide 6: Engagement -->
         <div class="slide" id="s6">
             <h2 class="slide-title">ENGAGEMENT +640%</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
-                <div class="metric-card" style="opacity: 0.5;">
-                    <span style="font-size: 12px; color: var(--text-dim);">E-LEARNING PASSIF</span>
-                    <div style="font-size: clamp(60px, 12vw, 100px); font-weight: 900; color: #444;">13%</div>
+            <div class="metrics-container">
+                <div class="metric-card" style="opacity: 0.6;">
+                    <span style="font-size: 10px; color: var(--text-dim);">E-LEARNING PASSIF</span>
+                    <div style="font-size: 40px; font-weight: 900;">13%</div>
                 </div>
                 <div class="metric-card" style="border-color: var(--accent-neon); background: rgba(0, 229, 255, 0.05);">
-                    <span style="font-size: 12px; color: var(--accent-neon);">IMMERSION QUESTIA</span>
-                    <div style="font-size: clamp(60px, 12vw, 100px); font-weight: 900; color: #fff; text-shadow: 0 0 30px var(--cyan-glow);">83%</div>
+                    <span style="font-size: 10px; color: var(--accent-neon);">IMMERSION QUESTIA</span>
+                    <div style="font-size: 50px; font-weight: 900; color: #fff;">83%</div>
                 </div>
             </div>
         </div>
@@ -336,58 +305,45 @@
         <!-- Slide 7: Tech -->
         <div class="slide" id="s7">
             <h2 class="slide-title">SIMULATEUR DE VOL</h2>
-            <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center;">
-                <div class="content-grid" style="display: flex; flex-direction: column; gap: 20px;">
-                    <div class="text-tile">
-                        <h3>Code Switching</h3>
-                        <p>IA réactive au ton et à la posture pour décoder <strong>l'implicite culturel</strong>.</p>
-                    </div>
-                    <div class="text-tile" style="border-color: var(--violet);">
-                        <h3>Scenario Builder</h3>
-                        <p>OF autonomes : création de missions métiers en <strong>120 secondes</strong>.</p>
-                    </div>
-                </div>
-                <div class="tech-icon-box" style="text-align: center; opacity: 0.2;">
-                    <i class="fa-solid fa-microchip" style="font-size: clamp(100px, 20vw, 250px); color: var(--accent-neon);"></i>
-                </div>
+            <div class="text-tile">
+                <h3>Code Switching</h3>
+                <p>IA réactive au ton et à la posture pour décoder <strong>l'implicite culturel</strong>.</p>
+            </div>
+            <div class="text-tile" style="border-color: var(--violet);">
+                <h3>Scenario Builder</h3>
+                <p>OF autonomes : création de missions métiers en <strong>120 secondes</strong>.</p>
             </div>
         </div>
 
         <!-- Slide 8: Business -->
         <div class="slide" id="s8">
             <h2 class="slide-title">MODÈLE ÉCONOMIQUE</h2>
-            <div style="text-align: center;">
-                <div class="business-card" style="display: inline-block; padding: 60px 100px; border: 1px solid var(--accent-neon); border-radius: 40px; background: rgba(0, 229, 255, 0.02); position: relative;">
-                    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--bg-dark); padding: 0 20px; font-family: 'Orbitron'; color: var(--accent-neon); font-size: 12px; letter-spacing: 5px;">LICENCE ANNUELLE</div>
-                    <div style="font-size: clamp(60px, 15vw, 120px); font-weight: 900; font-family: 'Urbanist'; color: #fff;">3 900 €</div>
-                    <p style="font-size: 18px; color: var(--text-dim); margin-top: 20px;">Finançable par les budgets formation & OPCO.</p>
-                </div>
+            <div class="business-card" style="padding: 40px 20px; border: 1px solid var(--accent-neon); border-radius: 30px; background: rgba(0, 229, 255, 0.05); width: 100%; max-width: 500px; margin: 0 auto;">
+                <span style="font-size: 10px; letter-spacing: 3px; color: var(--accent-neon);">LICENCE ANNUELLE</span>
+                <div style="font-size: clamp(50px, 12vw, 80px); font-weight: 900; margin: 15px 0;">3 900 €</div>
+                <p style="font-size: 14px; color: var(--text-dim);">Finançable par les budgets formation & OPCO.</p>
             </div>
         </div>
 
         <!-- Slide 9: Vision -->
         <div class="slide" id="s9">
             <h2 class="slide-title">DÉPLOIEMENT</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                <div class="text-tile" style="border-color: var(--coral);">
-                    <h3>Onboarding &lt; 48h</h3>
-                    <p>Déploiement instantané. Formation des équipes pédagogiques incluse.</p>
-                </div>
-                <div class="text-tile" style="border-color: var(--violet);">
-                    <h3>Standard 2026</h3>
-                    <p>Imposer l'immersion comme le nouveau pilier de l'excellence EdTech.</p>
-                </div>
+            <div class="text-tile" style="border-color: var(--coral);">
+                <h3>Onboarding &lt; 48h</h3>
+                <p>Déploiement instantané. Formation des équipes pédagogiques incluse.</p>
+            </div>
+            <div class="text-tile" style="border-color: var(--violet);">
+                <h3>Standard 2026</h3>
+                <p>Imposer l'immersion comme le nouveau pilier de l'excellence EdTech.</p>
             </div>
         </div>
 
         <!-- Slide 10: Conclusion -->
         <div class="slide" id="s10">
-            <div style="text-align: center;">
-                <h2 class="giant-title" style="font-size: clamp(40px, 8vw, 90px); margin-bottom: 40px;">BEYOND WORDS</h2>
-                <p style="font-size: clamp(18px, 4vw, 36px); font-weight: 200; color: var(--text-dim); margin-bottom: 50px;">"Excuse me... Tea or hands first?"</p>
-                <div style="background: var(--gradient-flow); padding: clamp(15px, 3vw, 25px) clamp(30px, 6vw, 60px); border-radius: 8px; display: inline-block; box-shadow: 0 0 50px var(--cyan-glow);">
-                    <h3 style="font-size: clamp(18px, 4vw, 32px); font-weight: 900; color: #000; font-family: 'Urbanist';">Really? Now you can with QuestIA!</h3>
-                </div>
+            <h2 class="giant-title" style="font-size: clamp(36px, 8vw, 70px);">BEYOND WORDS</h2>
+            <p style="font-size: 20px; color: var(--text-dim); margin-bottom: 30px;">"Excuse me... Tea or hands first?"</p>
+            <div style="background: linear-gradient(90deg, var(--accent-neon), var(--violet)); padding: 20px 40px; border-radius: 10px; color: #000; font-weight: 900; font-size: 20px;">
+                Really? Now you can with QuestIA!
             </div>
         </div>
 
@@ -414,7 +370,7 @@
                 setTimeout(() => {
                     const bar = document.getElementById('data-bar');
                     if(bar) bar.style.width = '43.5%';
-                }, 500);
+                }, 400);
             }
 
             if(current === 4) animateCounters();
@@ -429,12 +385,12 @@
                 c.innerText = '0';
                 const target = +c.dataset.val;
                 let val = 0;
-                const step = target / 40;
+                const step = target / 30;
                 const timer = setInterval(() => {
                     val += step;
                     if(val >= target) { c.innerText = target; clearInterval(timer); }
                     else { c.innerText = Math.floor(val); }
-                }, 20);
+                }, 30);
             });
         }
 
@@ -445,38 +401,40 @@
 
         // --- PARTICLE ENGINE ---
         const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        if(canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
 
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            for(let i=0; i<100; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    sx: (Math.random() - 0.5) * 0.8,
-                    sy: (Math.random() - 0.5) * 0.8
-                });
+            function init() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                particles = [];
+                for(let i=0; i<50; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        size: Math.random() * 2 + 1,
+                        sx: (Math.random() - 0.5) * 0.5,
+                        sy: (Math.random() - 0.5) * 0.5
+                    });
+                }
             }
-        }
 
-        function animate() {
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00E5FF';
-            particles.forEach(p => {
-                p.x += p.sx; p.y += p.sy;
-                if(p.x<0 || p.x>canvas.width) p.sx *= -1;
-                if(p.y<0 || p.y>canvas.height) p.sy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-            });
-            requestAnimationFrame(animate);
-        }
+            function animate() {
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+                ctx.fillStyle = '#00E5FF';
+                particles.forEach(p => {
+                    p.x += p.sx; p.y += p.sy;
+                    if(p.x<0 || p.x>canvas.width) p.sx *= -1;
+                    if(p.y<0 || p.y>canvas.height) p.sy *= -1;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
 
-        init(); animate();
-        window.addEventListener('resize', init);
+            init(); animate();
+            window.addEventListener('resize', init);
+        }
     </script>
 </body>
 </html>
