@@ -27,8 +27,8 @@
             background-color: var(--bg-dark);
             color: var(--text-white);
             font-family: 'Space Grotesk', sans-serif;
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -42,8 +42,10 @@
         }
 
         #viewport {
-            width: var(--slide-width);
-            height: var(--slide-height);
+            width: 95vw;
+            height: 90vh;
+            max-width: var(--slide-width);
+            max-height: var(--slide-height);
             background-color: rgba(6, 2, 20, 0.8);
             position: relative;
             overflow: hidden;
@@ -51,6 +53,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 8px;
+            margin: 20px;
         }
 
         .grid-overlay {
@@ -68,7 +71,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            padding: 80px;
+            padding: clamp(20px, 5vw, 80px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -79,19 +82,8 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            overflow-y: auto;
         }
-
-        /* --- IMMERSIVE BACKGROUNDS MAP --- */
-        #s1 { background-image: linear-gradient(rgba(2, 1, 8, 0.4), rgba(2, 1, 8, 0.6)), url("assets/fut_de_vin.jpg"); }
-        #s2 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/london.jpg"); }
-        #s3 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/madrid.jpg"); }
-        #s4 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/berlin.jpg"); }
-        #s5 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/amsterdam.jpg"); }
-        #s6 { background-image: linear-gradient(rgba(2, 1, 8, 0.8), rgba(2, 1, 8, 0.95)), url("assets/lagos.jpg"); }
-        #s7 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/nyc.jpg"); }
-        #s8 { background-image: linear-gradient(rgba(2, 1, 8, 0.8), rgba(2, 1, 8, 0.95)), url("assets/amsterdam.jpg"); }
-        #s9 { background-image: linear-gradient(rgba(2, 1, 8, 0.8), rgba(2, 1, 8, 0.95)), url("assets/london.jpg"); }
-        #s10 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1280&auto=format&fit=crop"); }
 
         .slide.active {
             opacity: 1;
@@ -100,7 +92,7 @@
 
         /* --- ANIMATED TITLES --- */
         .giant-title {
-            font-size: 140px;
+            font-size: clamp(48px, 10vw, 140px);
             font-weight: 900;
             line-height: 0.9;
             background: linear-gradient(135deg, #fff, var(--accent-neon), var(--violet));
@@ -116,10 +108,10 @@
         }
 
         .slide-title {
-            font-size: 68px;
+            font-size: clamp(32px, 6vw, 68px);
             font-weight: 900;
             color: var(--accent-neon);
-            margin-bottom: 30px;
+            margin-bottom: clamp(15px, 3vw, 30px);
             letter-spacing: -2px;
             text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
         }
@@ -128,12 +120,15 @@
         .text-tile {
             background: rgba(255, 255, 255, 0.02);
             border-left: 3px solid var(--accent-neon);
-            padding: 25px 30px;
-            margin-bottom: 30px;
+            padding: clamp(15px, 3vw, 25px) clamp(20px, 4vw, 30px);
+            margin-bottom: clamp(15px, 3vw, 30px);
             border-radius: 0 15px 15px 0;
             transition: 0.3s;
             animation: card-pulse 8s infinite alternate ease-in-out;
         }
+
+        .text-tile h3 { font-size: clamp(18px, 4vw, 24px); margin-bottom: 10px; }
+        .text-tile p { font-size: clamp(14px, 3vw, 18px); line-height: 1.5; }
 
         .text-tile:hover {
             background: rgba(0, 229, 255, 0.05);
@@ -150,10 +145,13 @@
             background: rgba(0, 229, 255, 0.02);
             border: 1px solid rgba(0, 229, 255, 0.1);
             border-radius: 20px;
-            padding: 40px;
+            padding: clamp(20px, 4vw, 40px);
             text-align: center;
             transition: 0.4s;
         }
+
+        .metric-value { font-size: clamp(40px, 8vw, 90px) !important; font-weight: 900; }
+        .metric-label { font-size: clamp(12px, 2vw, 16px); color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
 
         .metric-card:hover {
             border-color: var(--accent-neon);
@@ -163,11 +161,16 @@
 
         .progress-box {
             width: 100%; background: rgba(255,255,255,0.05); height: 12px; border-radius: 6px; 
-            margin-top: 40px; overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.2);
+            margin-top: clamp(20px, 4vw, 40px); overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.2);
         }
         .progress-bar { height: 100%; width: 0; background: var(--gradient-flow); transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); }
 
         /* --- LOGO SCAN --- */
+        .logo-box img {
+            max-width: 100%;
+            height: auto !important;
+            max-height: clamp(150px, 40vh, 320px) !important;
+        }
         .logo-box { 
             animation: logo-entrance 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -177,7 +180,7 @@
         }
 
         .logo-line {
-            width: 260px; height: 2px;
+            width: min(260px, 80%); height: 2px;
             background: rgba(0, 229, 255, 0.2);
             margin: 30px auto; position: relative; overflow: hidden;
         }
@@ -189,16 +192,46 @@
         @keyframes scan { from { left: -100%; } to { left: 100%; } }
 
         /* --- UI CONTROLS --- */
-        .nav-ui { position: absolute; bottom: 40px; right: 40px; display: flex; gap: 25px; z-index: 1000; }
+        .nav-ui { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 15px; z-index: 1000; }
         .btn {
             background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 229, 255, 0.3);
-            color: var(--accent-neon); width: 60px; height: 60px; border-radius: 50%;
+            color: var(--accent-neon); width: clamp(44px, 10vw, 60px); height: clamp(44px, 10vw, 60px); border-radius: 50%;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            font-size: 20px; transition: 0.3s; backdrop-filter: blur(5px);
+            font-size: clamp(16px, 4vw, 20px); transition: 0.3s; backdrop-filter: blur(5px);
         }
         .btn:hover { background: var(--accent-neon); color: #000; box-shadow: 0 0 30px var(--accent-neon); transform: scale(1.1); }
 
-        .slide-num { position: absolute; bottom: 55px; left: 80px; font-family: 'Orbitron'; font-size: 11px; letter-spacing: 5px; color: var(--text-dim); }
+        .slide-num { position: absolute; bottom: clamp(25px, 5vw, 55px); left: clamp(20px, 5vw, 80px); font-family: 'Orbitron'; font-size: clamp(8px, 1.5vw, 11px); letter-spacing: 5px; color: var(--text-dim); }
+
+        /* --- RESPONSIVE GRIDS --- */
+        @media (max-width: 768px) {
+            .slide { padding: 30px 20px; justify-content: flex-start; }
+            #viewport { height: 95vh; }
+            .giant-title { margin-top: 40px; }
+            .slide-title { margin-top: 20px; }
+            
+            /* Responsive layout for grids and flex containers */
+            #s2 .slide-content, #s3 .slide-content, #s6 .slide-content, #s7 .slide-content, #s9 .slide-content {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            #s2 > div, #s3 > div, #s6 > div, #s7 > div, #s9 > div {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            #s5 .metrics-container {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+            #s8 .business-card {
+                padding: 40px 20px !important;
+                width: 100% !important;
+            }
+            #s8 div[style*="font-size: 120px"] {
+                font-size: 60px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -259,9 +292,9 @@
         <div class="slide" id="s5">
             <h2 class="slide-title">VALIDATION TERRAIN</h2>
             <div class="metrics-container" style="display: flex; gap: 30px;">
-                <div class="metric-card" style="flex:1"><div class="metric-value counter" data-val="51" style="font-size: 90px;">0</div><div class="metric-label">Calls</div></div>
-                <div class="metric-card" style="flex:1; border-color: var(--violet);"><div class="metric-value counter" data-val="7" style="font-size: 90px;">0</div><div class="metric-label">RDVs</div></div>
-                <div class="metric-card" style="flex:1"><div class="metric-value counter" data-val="44" style="font-size: 90px;">0</div><div class="metric-label">Emails</div></div>
+                <div class="metric-card" style="flex:1"><div class="metric-value counter" data-val="51">0</div><div class="metric-label">Calls</div></div>
+                <div class="metric-card" style="flex:1; border-color: var(--violet);"><div class="metric-value counter" data-val="7">0</div><div class="metric-label">RDVs</div></div>
+                <div class="metric-card" style="flex:1"><div class="metric-value counter" data-val="44">0</div><div class="metric-label">Emails</div></div>
             </div>
             <div class="text-tile" style="margin-top: 40px; border-left: 5px solid var(--coral);">
                 <p style="font-size: 24px; font-style: italic; color: #fff;">"C'est l'outil qui transforme enfin la langue en réflexe de survie."</p>
@@ -274,11 +307,11 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
                 <div class="metric-card" style="opacity: 0.5;">
                     <span style="font-size: 12px; color: var(--text-dim);">E-LEARNING PASSIF</span>
-                    <div style="font-size: 100px; font-weight: 900; color: #444;">13%</div>
+                    <div style="font-size: clamp(60px, 12vw, 100px); font-weight: 900; color: #444;">13%</div>
                 </div>
                 <div class="metric-card" style="border-color: var(--accent-neon); background: rgba(0, 229, 255, 0.05);">
                     <span style="font-size: 12px; color: var(--accent-neon);">IMMERSION QUESTIA</span>
-                    <div style="font-size: 100px; font-weight: 900; color: #fff; text-shadow: 0 0 30px var(--cyan-glow);">83%</div>
+                    <div style="font-size: clamp(60px, 12vw, 100px); font-weight: 900; color: #fff; text-shadow: 0 0 30px var(--cyan-glow);">83%</div>
                 </div>
             </div>
         </div>
@@ -297,8 +330,8 @@
                         <p>OF autonomes : création de missions métiers en <strong>120 secondes</strong>.</p>
                     </div>
                 </div>
-                <div style="text-align: center; opacity: 0.2;">
-                    <i class="fa-solid fa-microchip" style="font-size: 250px; color: var(--accent-neon);"></i>
+                <div class="tech-icon-box" style="text-align: center; opacity: 0.2;">
+                    <i class="fa-solid fa-microchip" style="font-size: clamp(100px, 20vw, 250px); color: var(--accent-neon);"></i>
                 </div>
             </div>
         </div>
@@ -307,9 +340,9 @@
         <div class="slide" id="s8">
             <h2 class="slide-title">MODÈLE ÉCONOMIQUE</h2>
             <div style="text-align: center;">
-                <div style="display: inline-block; padding: 60px 100px; border: 1px solid var(--accent-neon); border-radius: 40px; background: rgba(0, 229, 255, 0.02); position: relative;">
+                <div class="business-card" style="display: inline-block; padding: 60px 100px; border: 1px solid var(--accent-neon); border-radius: 40px; background: rgba(0, 229, 255, 0.02); position: relative;">
                     <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--bg-dark); padding: 0 20px; font-family: 'Orbitron'; color: var(--accent-neon); font-size: 12px; letter-spacing: 5px;">LICENCE ANNUELLE</div>
-                    <div style="font-size: 120px; font-weight: 900; font-family: 'Urbanist'; color: #fff;">3 900 €</div>
+                    <div style="font-size: clamp(60px, 15vw, 120px); font-weight: 900; font-family: 'Urbanist'; color: #fff;">3 900 €</div>
                     <p style="font-size: 18px; color: var(--text-dim); margin-top: 20px;">Finançable par les budgets formation & OPCO.</p>
                 </div>
             </div>
@@ -333,10 +366,10 @@
         <!-- Slide 10: Conclusion -->
         <div class="slide" id="s10">
             <div style="text-align: center;">
-                <h2 class="giant-title" style="font-size: 90px; margin-bottom: 40px;">BEYOND WORDS</h2>
-                <p style="font-size: 36px; font-weight: 200; color: var(--text-dim); margin-bottom: 50px;">"Excuse me... Tea or hands first?"</p>
-                <div style="background: var(--gradient-flow); padding: 25px 60px; border-radius: 8px; display: inline-block; box-shadow: 0 0 50px var(--cyan-glow);">
-                    <h3 style="font-size: 32px; font-weight: 900; color: #000; font-family: 'Urbanist';">Really? Now you can with QuestIA!</h3>
+                <h2 class="giant-title" style="font-size: clamp(40px, 8vw, 90px); margin-bottom: 40px;">BEYOND WORDS</h2>
+                <p style="font-size: clamp(18px, 4vw, 36px); font-weight: 200; color: var(--text-dim); margin-bottom: 50px;">"Excuse me... Tea or hands first?"</p>
+                <div style="background: var(--gradient-flow); padding: clamp(15px, 3vw, 25px) clamp(30px, 6vw, 60px); border-radius: 8px; display: inline-block; box-shadow: 0 0 50px var(--cyan-glow);">
+                    <h3 style="font-size: clamp(18px, 4vw, 32px); font-weight: 900; color: #000; font-family: 'Urbanist';">Really? Now you can with QuestIA!</h3>
                 </div>
             </div>
         </div>
@@ -362,7 +395,8 @@
 
             if(current === 3) {
                 setTimeout(() => {
-                    document.getElementById('data-bar').style.width = '43.5%';
+                    const bar = document.getElementById('data-bar');
+                    if(bar) bar.style.width = '43.5%';
                 }, 500);
             }
 
