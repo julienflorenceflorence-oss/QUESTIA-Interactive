@@ -86,9 +86,22 @@
             z-index: 2;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             overflow-y: auto;
             text-align: center;
         }
+
+        /* --- IMMERSIVE BACKGROUNDS --- */
+        #s1 { background-image: linear-gradient(rgba(2, 1, 8, 0.4), rgba(2, 1, 8, 0.6)), url("assets/fut_de_vin.jpg"); }
+        #s2 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/london.jpg"); }
+        #s3 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/madrid.jpg"); }
+        #s4 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/berlin.jpg"); }
+        #s5 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/amsterdam.jpg"); }
+        #s6 { background-image: linear-gradient(rgba(2, 1, 8, 0.8), rgba(2, 1, 8, 0.95)), url("assets/lagos.jpg"); }
+        #s7 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("assets/nyc.jpg"); }
+        #s8 { background-image: linear-gradient(rgba(2, 1, 8, 0.8), rgba(2, 1, 8, 0.95)), url("assets/amsterdam.jpg"); }
+        #s9 { background-image: linear-gradient(rgba(2, 1, 8, 0.8), rgba(2, 1, 8, 0.95)), url("assets/london.jpg"); }
+        #s10 { background-image: linear-gradient(rgba(2, 1, 8, 0.7), rgba(2, 1, 8, 0.9)), url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1280&auto=format&fit=crop"); }
 
         .slide.active {
             opacity: 1;
@@ -122,7 +135,7 @@
         }
 
         .text-tile {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             border-left: 4px solid var(--accent-neon);
             padding: 20px;
             margin-bottom: 15px;
@@ -130,6 +143,7 @@
             text-align: left;
             width: 100%;
             max-width: 800px;
+            backdrop-filter: blur(5px);
         }
 
         .text-tile h3 { font-size: 20px; margin-bottom: 8px; color: var(--accent-neon); }
@@ -144,12 +158,13 @@
         }
 
         .metric-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(0, 229, 255, 0.2);
             border-radius: 15px;
             padding: 20px;
             flex: 1 1 200px;
             max-width: 300px;
+            backdrop-filter: blur(5px);
         }
 
         .metric-value { 
@@ -183,7 +198,7 @@
         }
 
         .btn {
-            background: rgba(0, 229, 255, 0.1);
+            background: rgba(0, 229, 255, 0.2);
             border: 1px solid var(--accent-neon);
             color: var(--accent-neon);
             width: 50px;
@@ -194,7 +209,10 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+            transition: 0.3s;
         }
+
+        .btn:hover { background: var(--accent-neon); color: #000; }
 
         .slide-num {
             position: absolute;
@@ -208,11 +226,10 @@
 
         @media (max-width: 767px) {
             .slide { 
-                padding: 40px 20px;
+                padding: 60px 20px;
                 justify-content: flex-start;
-                display: block; /* Switch to block for natural scrolling if content overflows */
             }
-            #s1 { display: flex !important; } /* Stay flex for centering */
+            #s1 { display: flex !important; padding: 0 !important; }
             
             .giant-title, .slide-title { text-align: center; width: 100%; }
             .text-tile { margin-left: auto; margin-right: auto; }
@@ -270,7 +287,7 @@
         <!-- Slide 4: Data 49 -->
         <div class="slide" id="s4">
             <h2 class="slide-title">49<sup>ème</sup> RANG</h2>
-            <p style="font-size: clamp(18px, 4vw, 24px); margin-bottom: 30px;">Le retard français : Derniers d'Europe de l'Ouest. <br><strong>Une opportunité historique pour l'IA.</strong></p>
+            <p style="font-size: clamp(18px, 4vw, 24px); margin-bottom: 30px; color: #fff;">Le retard français : Derniers d'Europe de l'Ouest. <br><strong>Une opportunité historique pour l'IA.</strong></p>
             <div style="width: 100%; background: rgba(255,255,255,0.05); height: 10px; border-radius: 5px; overflow: hidden; border: 1px solid rgba(0, 229, 255, 0.2);">
                 <div id="data-bar" style="height: 100%; width: 0; background: linear-gradient(90deg, var(--violet), var(--accent-neon)); transition: width 2s ease;"></div>
             </div>
@@ -285,17 +302,20 @@
                 <div class="metric-card" style="border-color: var(--violet);"><div class="metric-value counter" data-val="7">0</div><div class="metric-label">RDVs</div></div>
                 <div class="metric-card"><div class="metric-value counter" data-val="44">0</div><div class="metric-label">Emails</div></div>
             </div>
+            <div class="text-tile" style="margin-top: 20px; border-left: 5px solid var(--coral);">
+                <p style="font-size: 18px; font-style: italic;">"C'est l'outil qui transforme enfin la langue en réflexe de survie."</p>
+            </div>
         </div>
 
         <!-- Slide 6: Engagement -->
         <div class="slide" id="s6">
             <h2 class="slide-title">ENGAGEMENT +640%</h2>
             <div class="metrics-container">
-                <div class="metric-card" style="opacity: 0.6;">
+                <div class="metric-card" style="opacity: 0.8;">
                     <span style="font-size: 10px; color: var(--text-dim);">E-LEARNING PASSIF</span>
                     <div style="font-size: 40px; font-weight: 900;">13%</div>
                 </div>
-                <div class="metric-card" style="border-color: var(--accent-neon); background: rgba(0, 229, 255, 0.05);">
+                <div class="metric-card" style="border-color: var(--accent-neon); background: rgba(0, 229, 255, 0.1);">
                     <span style="font-size: 10px; color: var(--accent-neon);">IMMERSION QUESTIA</span>
                     <div style="font-size: 50px; font-weight: 900; color: #fff;">83%</div>
                 </div>
@@ -318,7 +338,7 @@
         <!-- Slide 8: Business -->
         <div class="slide" id="s8">
             <h2 class="slide-title">MODÈLE ÉCONOMIQUE</h2>
-            <div class="business-card" style="padding: 40px 20px; border: 1px solid var(--accent-neon); border-radius: 30px; background: rgba(0, 229, 255, 0.05); width: 100%; max-width: 500px; margin: 0 auto;">
+            <div class="business-card" style="padding: 40px 20px; border: 1px solid var(--accent-neon); border-radius: 30px; background: rgba(0, 229, 255, 0.1); width: 100%; max-width: 500px; margin: 0 auto; backdrop-filter: blur(10px);">
                 <span style="font-size: 10px; letter-spacing: 3px; color: var(--accent-neon);">LICENCE ANNUELLE</span>
                 <div style="font-size: clamp(50px, 12vw, 80px); font-weight: 900; margin: 15px 0;">3 900 €</div>
                 <p style="font-size: 14px; color: var(--text-dim);">Finançable par les budgets formation & OPCO.</p>
